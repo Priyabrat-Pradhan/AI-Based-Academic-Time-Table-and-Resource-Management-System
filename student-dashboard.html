@@ -1,0 +1,1327 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Student Dashboard | AI SmartTime</title>
+
+    <link rel="stylesheet"
+          href="student-dashboard.css">
+</head>
+
+<body>
+
+<div class="dashboard-wrapper">
+
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
+
+    <aside class="sidebar">
+
+        <!-- BRAND -->
+        <div class="sidebar-brand">
+
+            <div class="sidebar-brand-title">
+                <span>AI</span> SmartTime
+            </div>
+
+            <small>ACADEMIC TIMETABLE</small>
+
+        </div>
+
+
+        <!-- STUDENT PROFILE -->
+        <div class="student-profile">
+
+            <div class="profile-image-wrapper">
+
+                <img id="sidebarProfileImage"
+                     class="profile-photo"
+                     alt="Student Profile">
+
+                <div id="defaultProfile"
+                     class="default-profile">
+
+                    Student<br>
+                    Profile
+
+                </div>
+
+            </div>
+
+
+            <h3 id="sidebarName">
+                Priyabrat Pradhan
+            </h3>
+
+            <p>
+                Reg No:
+                <span id="sidebarRegNo">
+                    23CSE045
+                </span>
+            </p>
+
+            <p>
+
+                <span id="sidebarBranch">
+                    CSE
+                </span>
+
+                -
+
+                Section
+
+                <span id="sidebarSection">
+                    A
+                </span>
+
+            </p>
+
+            <p id="sidebarYear">
+                4th Year
+            </p>
+
+        </div>
+
+
+        <!-- =================================================
+             MENU
+        ================================================== -->
+
+        <div class="sidebar-menu">
+
+            <div class="menu-title">
+                MAIN MENU
+            </div>
+
+
+            <button
+                type="button"
+                class="menu-item active"
+                data-section="dashboard">
+
+                <span>Dashboard</span>
+
+            </button>
+
+
+            <button
+                type="button"
+                class="menu-item"
+                data-section="timetable">
+
+                <span>My Timetable</span>
+
+            </button>
+
+
+            <button
+                type="button"
+                class="menu-item"
+                data-section="notifications">
+
+                <span>Notifications</span>
+
+            </button>
+
+
+            <button
+                type="button"
+                class="menu-item"
+                data-section="profile">
+
+                <span>Profile</span>
+
+            </button>
+
+        </div>
+
+
+        <!-- LOGOUT -->
+
+        <div class="sidebar-bottom">
+
+            <button
+                type="button"
+                id="logoutBtn"
+                class="menu-item logout-btn">
+
+                <span>Logout</span>
+
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+    ====================================================== -->
+
+    <main class="main-content">
+
+
+        <!-- TOP HEADER -->
+
+        <header class="top-header">
+
+            <div class="page-title">
+
+                <h2 id="pageTitle">
+                    Student Dashboard
+                </h2>
+
+                <p id="pageSubtitle">
+                    Manage your academic timetable and notifications
+                </p>
+
+            </div>
+
+
+            <div class="date-box"
+                 id="currentDate">
+            </div>
+
+        </header>
+
+
+
+        <!-- =================================================
+             DASHBOARD
+        ================================================== -->
+
+        <section id="dashboard"
+                 class="page-section active-section">
+
+            <div class="content-area">
+
+
+                <!-- WELCOME -->
+
+                <div class="welcome-box">
+
+                    <h1>
+
+                        Welcome back,
+
+                        <span id="welcomeName">
+                            Priyabrat Pradhan
+                        </span>
+
+                    </h1>
+
+                    <p>
+                        View your academic timetable,
+                        class updates and important
+                        notifications from here.
+                    </p>
+
+                </div>
+
+
+
+                <!-- RECENT NOTIFICATIONS -->
+
+                <div class="section-card">
+
+                    <div class="section-header">
+
+                        <div>
+
+                            <h2>
+                                Recent Notifications
+                            </h2>
+
+                            <p>
+                                Latest academic updates
+                            </p>
+
+                        </div>
+
+
+                        <button
+                            type="button"
+                            class="small-btn"
+                            data-section-button="notifications">
+
+                            View All
+
+                        </button>
+
+                    </div>
+
+
+                    <div class="notification-list"
+                         id="dashboardNotifications">
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- TODAY'S TIMETABLE -->
+
+                <div class="section-card">
+
+                    <div class="section-header">
+
+                        <div>
+
+                            <h2>
+                                Today's Timetable
+                            </h2>
+
+                            <p>
+                                Your scheduled classes for today
+                            </p>
+
+                        </div>
+
+
+                        <button
+                            type="button"
+                            class="small-btn"
+                            data-section-button="timetable">
+
+                            Full Timetable
+
+                        </button>
+
+                    </div>
+
+
+                    <div class="table-container">
+
+                        <table class="today-table">
+
+                            <thead>
+
+                            <tr>
+
+                                <th>Time</th>
+                                <th>Subject</th>
+                                <th>Faculty</th>
+                                <th>Room</th>
+                                <th>Status</th>
+
+                            </tr>
+
+                            </thead>
+
+
+                            <tbody>
+
+                            <tr>
+
+                                <td>
+                                    09:00 - 09:55
+                                </td>
+
+                                <td class="subject-name">
+                                    Software Project Management
+                                </td>
+
+                                <td>
+                                    Mrs. Sasmita Pani
+                                </td>
+
+                                <td>
+                                    Room 303
+                                </td>
+
+                                <td>
+                                    <span class="status-badge scheduled">
+                                        Scheduled
+                                    </span>
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>
+                                    10:00 - 10:55
+                                </td>
+
+                                <td class="subject-name">
+                                    Applied Data Science
+                                </td>
+
+                                <td>
+                                    Dr. Rajesh Kumar Tripathy
+                                </td>
+
+                                <td>
+                                    Room 303
+                                </td>
+
+                                <td>
+                                    <span class="status-badge scheduled">
+                                        Scheduled
+                                    </span>
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>
+                                    11:05 - 12:00
+                                </td>
+
+                                <td class="subject-name">
+                                    Marketing Management
+                                </td>
+
+                                <td>
+                                    Soumitra Das
+                                </td>
+
+                                <td>
+                                    Room 303
+                                </td>
+
+                                <td>
+                                    <span class="status-badge scheduled">
+                                        Scheduled
+                                    </span>
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>
+                                    12:05 - 01:00
+                                </td>
+
+                                <td class="subject-name">
+                                    Renewable Energy Sources
+                                </td>
+
+                                <td>
+                                    Dr. Yogesh Kumar Nayak
+                                </td>
+
+                                <td>
+                                    Room 303
+                                </td>
+
+                                <td>
+                                    <span class="status-badge scheduled">
+                                        Scheduled
+                                    </span>
+                                </td>
+
+                            </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             FULL TIMETABLE
+        ================================================== -->
+
+        <section id="timetable"
+                 class="page-section">
+
+            <div class="content-area">
+
+                <div class="section-card timetable-card">
+
+
+                    <div class="section-header">
+
+                        <div>
+
+                            <h2>
+                                My Academic Timetable
+                            </h2>
+
+                            <p>
+                                CSE 7th Semester • Odd Semester 2026-27
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- ACADEMIC TIMETABLE -->
+
+                    <div class="academic-timetable-wrapper">
+
+                        <table class="academic-timetable">
+
+                            <thead>
+
+                            <tr class="college-heading">
+
+                                <th colspan="9">
+                                    GOVERNMENT COLLEGE OF ENGINEERING, KEONJHAR
+                                </th>
+
+                            </tr>
+
+
+                            <tr class="college-heading">
+
+                                <th colspan="9">
+                                    DEPARTMENT OF COMPUTER SCIENCE &amp; ENGINEERING
+                                </th>
+
+                            </tr>
+
+
+                            <tr class="college-heading">
+
+                                <th colspan="9">
+                                    CSE 7TH SEMESTER
+                                </th>
+
+                            </tr>
+
+
+                            <tr class="college-heading">
+
+                                <th colspan="9">
+                                    TIME TABLE ODD SEMESTER 2026-27
+                                </th>
+
+                            </tr>
+
+
+                            <tr class="college-heading">
+
+                                <th colspan="9">
+                                    W.E.F. 17.07.2026 • ROOM NO. 303 • BLOCK-II
+                                </th>
+
+                            </tr>
+
+
+                            <tr class="time-header">
+
+                                <th>DAY</th>
+
+                                <th>
+                                    9:00-9:55
+                                </th>
+
+                                <th>
+                                    10:00-10:55
+                                </th>
+
+                                <th>
+                                    11:05-12:00
+                                </th>
+
+                                <th>
+                                    12:05-1:00
+                                </th>
+
+                                <th>
+                                    1:00-2:30
+                                </th>
+
+                                <th>
+                                    2:30-3:20
+                                </th>
+
+                                <th>
+                                    3:20-4:10
+                                </th>
+
+                                <th>
+                                    4:10-5:00
+                                </th>
+
+                            </tr>
+
+                            </thead>
+
+
+                            <tbody>
+
+
+                            <!-- MONDAY -->
+
+                            <tr>
+
+                                <th class="day-cell">
+                                    MON
+                                </th>
+
+                                <td>
+                                    X
+                                </td>
+
+                                <td>
+                                    <strong>RES</strong>
+                                    <small>(YKN)</small>
+                                </td>
+
+                                <td>
+                                    <strong>ADS</strong>
+                                    <small>(RKT)</small>
+                                </td>
+
+                                <td>
+                                    <strong>MM</strong>
+                                    <small>(SD)</small>
+                                </td>
+
+                                <td rowspan="6"
+                                    class="lunch-cell">
+
+                                    LUNCH<br>
+                                    BREAK
+
+                                </td>
+
+                                <td colspan="3">
+
+                                    <strong>
+                                        SEMINAR ON SIRE-II
+                                    </strong>
+
+                                    <small>
+                                        (SP) CLASS ROOM
+                                    </small>
+
+                                </td>
+
+                            </tr>
+
+
+
+                            <!-- TUESDAY -->
+
+                            <tr>
+
+                                <th class="day-cell">
+                                    TUE
+                                </th>
+
+                                <td>
+                                    X
+                                </td>
+
+                                <td>
+                                    <strong>SPM</strong>
+                                    <small>(SP)</small>
+                                </td>
+
+                                <td>
+                                    <strong>ADS</strong>
+                                    <small>(RKT)</small>
+                                </td>
+
+                                <td>
+                                    <strong>RES</strong>
+                                    <small>(YKN)</small>
+                                </td>
+
+                                <td colspan="3">
+
+                                    <strong>
+                                        PPD-II
+                                    </strong>
+
+                                    <small>
+                                        Project Lab
+                                    </small>
+
+                                </td>
+
+                            </tr>
+
+
+
+                            <!-- WEDNESDAY -->
+
+                            <tr>
+
+                                <th class="day-cell">
+                                    WED
+                                </th>
+
+                                <td>
+                                    X
+                                </td>
+
+                                <td>
+                                    <strong>SPM</strong>
+                                    <small>(SP)</small>
+                                </td>
+
+                                <td>
+                                    <strong>MM</strong>
+                                    <small>(SD)</small>
+                                </td>
+
+                                <td>
+                                    <strong>RES</strong>
+                                    <small>(YKN)</small>
+                                </td>
+
+                                <td colspan="3">
+
+                                    <strong>
+                                        SEMINAR ON SIRE-II
+                                    </strong>
+
+                                    <small>
+                                        (SP) CLASS ROOM
+                                    </small>
+
+                                </td>
+
+                            </tr>
+
+
+
+                            <!-- THURSDAY -->
+
+                            <tr>
+
+                                <th class="day-cell">
+                                    THU
+                                </th>
+
+                                <td>
+                                    X
+                                </td>
+
+                                <td>
+                                    <strong>SPM</strong>
+                                    <small>(SP)</small>
+                                </td>
+
+                                <td>
+                                    <strong>ADS</strong>
+                                    <small>(RKT)</small>
+                                </td>
+
+                                <td>
+                                    <strong>MM</strong>
+                                    <small>(SD)</small>
+                                </td>
+
+                                <td>
+                                    X
+                                </td>
+
+                                <td>
+                                    X
+                                </td>
+
+                                <td>
+                                    X
+                                </td>
+
+                            </tr>
+
+
+
+                            <!-- FRIDAY -->
+
+                            <tr>
+
+                                <th class="day-cell">
+                                    FRI
+                                </th>
+
+                                <td colspan="4">
+
+                                    <strong>
+                                        TUTORIAL / EXTRA CLASSES
+                                    </strong>
+
+                                </td>
+
+                                <td colspan="3">
+
+                                    <strong>
+                                        PPD-II
+                                    </strong>
+
+                                    <small>
+                                        PROJECT LAB
+                                    </small>
+
+                                </td>
+
+                            </tr>
+
+
+
+                            <!-- SATURDAY -->
+
+                            <tr>
+
+                                <th class="day-cell">
+                                    SAT
+                                </th>
+
+                                <td>
+                                    X
+                                </td>
+
+                                <td>
+                                    X
+                                </td>
+
+                                <td>
+                                    X
+                                </td>
+
+                                <td>
+                                    X
+                                </td>
+
+                                <td>
+                                    X
+                                </td>
+
+                                <td>
+                                    X
+                                </td>
+
+                                <td>
+                                    X
+                                </td>
+
+                            </tr>
+
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+
+
+                    <!-- SUBJECT DETAILS -->
+
+                    <div class="subject-table-wrapper">
+
+                        <h3>
+                            Subject &amp; Faculty Details
+                        </h3>
+
+
+                        <div class="table-container">
+
+                            <table class="subject-table">
+
+                                <thead>
+
+                                <tr>
+
+                                    <th>
+                                        Subject Code
+                                    </th>
+
+                                    <th>
+                                        Abbreviation
+                                    </th>
+
+                                    <th>
+                                        Subject Name
+                                    </th>
+
+                                    <th>
+                                        Faculty Name
+                                    </th>
+
+                                    <th>
+                                        Faculty Abbreviation
+                                    </th>
+
+                                </tr>
+
+                                </thead>
+
+
+                                <tbody>
+
+                                <tr>
+
+                                    <td>
+                                        CSPE4002
+                                    </td>
+
+                                    <td>
+                                        SPM
+                                    </td>
+
+                                    <td>
+                                        Software Project Management
+                                    </td>
+
+                                    <td>
+                                        Mrs. Sasmita Pani
+                                    </td>
+
+                                    <td>
+                                        SP
+                                    </td>
+
+                                </tr>
+
+
+                                <tr>
+
+                                    <td>
+                                        EEPE3005
+                                    </td>
+
+                                    <td>
+                                        RES
+                                    </td>
+
+                                    <td>
+                                        Renewable Energy Sources
+                                    </td>
+
+                                    <td>
+                                        Dr. Yogesh Kumar Nayak
+                                    </td>
+
+                                    <td>
+                                        YKN
+                                    </td>
+
+                                </tr>
+
+
+                                <tr>
+
+                                    <td>
+                                        HSOE4001
+                                    </td>
+
+                                    <td>
+                                        MM
+                                    </td>
+
+                                    <td>
+                                        Marketing Management
+                                    </td>
+
+                                    <td>
+                                        Soumitra Das
+                                    </td>
+
+                                    <td>
+                                        SD
+                                    </td>
+
+                                </tr>
+
+
+                                <tr>
+
+                                    <td>
+                                        PCAC4001
+                                    </td>
+
+                                    <td>
+                                        ADS
+                                    </td>
+
+                                    <td>
+                                        Applied Data Science
+                                    </td>
+
+                                    <td>
+                                        Dr. Rajesh Kumar Tripathy
+                                    </td>
+
+                                    <td>
+                                        RKT
+                                    </td>
+
+                                </tr>
+
+
+                                <tr>
+
+                                    <td>
+                                        CSPS4201
+                                    </td>
+
+                                    <td>
+                                        SIRE-II
+                                    </td>
+
+                                    <td>
+                                        Seminar on SIRE-II
+                                    </td>
+
+                                    <td>
+                                        Mrs. Sasmita Pani
+                                    </td>
+
+                                    <td>
+                                        SP
+                                    </td>
+
+                                </tr>
+
+
+                                <tr>
+
+                                    <td>
+                                        CSPS4202
+                                    </td>
+
+                                    <td>
+                                        PPD-II
+                                    </td>
+
+                                    <td>
+                                        Project for Product Development-II
+                                    </td>
+
+                                    <td>
+                                        RKT / MB / SKB / SP
+                                    </td>
+
+                                    <td>
+                                        RKT/MB/SKB/SP
+                                    </td>
+
+                                </tr>
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             NOTIFICATIONS
+        ================================================== -->
+
+        <section id="notifications"
+                 class="page-section">
+
+            <div class="content-area">
+
+                <div class="section-card">
+
+                    <div class="section-header">
+
+                        <div>
+
+                            <h2>
+                                Notifications
+                            </h2>
+
+                            <p>
+                                Timetable and class updates
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="notification-list"
+                         id="allNotifications">
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             PROFILE
+        ================================================== -->
+
+        <section id="profile"
+                 class="page-section">
+
+            <div class="content-area">
+
+                <div class="profile-card">
+
+
+                    <!-- PROFILE PHOTO -->
+
+                    <div class="profile-top">
+
+                        <div class="large-photo-wrapper">
+
+                            <img id="profileImage"
+                                 class="large-profile-photo"
+                                 alt="Profile Photo">
+
+                            <div id="largeDefaultProfile"
+                                 class="large-default-profile">
+
+                                Student<br>
+                                Profile
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="photo-controls">
+
+                            <h3>
+                                Profile Photo
+                            </h3>
+
+                            <p>
+                                Upload a JPG, PNG or WEBP image.
+                            </p>
+
+
+                            <input
+                                type="file"
+                                id="photoInput"
+                                accept="image/*"
+                                hidden>
+
+
+                            <label
+                                for="photoInput"
+                                class="change-photo-btn">
+
+                                Change Photo
+
+                            </label>
+
+
+                            <button
+                                type="button"
+                                id="removePhotoBtn"
+                                class="remove-photo-btn">
+
+                                Remove Photo
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- PROFILE FORM -->
+
+                    <form
+                        id="profileForm"
+                        class="profile-form">
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Full Name
+                            </label>
+
+                            <input
+                                type="text"
+                                id="profileName"
+                                required>
+
+                        </div>
+
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Registration Number
+                            </label>
+
+                            <input
+                                type="text"
+                                id="profileRegNo"
+                                required>
+
+                        </div>
+
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Branch
+                            </label>
+
+                            <input
+                                type="text"
+                                id="profileBranch"
+                                required>
+
+                        </div>
+
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Section
+                            </label>
+
+                            <select id="profileSection">
+
+                                <option value="A">
+                                    Section A
+                                </option>
+
+                                <option value="B">
+                                    Section B
+                                </option>
+
+                                <option value="C">
+                                    Section C
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Year
+                            </label>
+
+                            <select id="profileYear">
+
+                                <option value="1st Year">
+                                    1st Year
+                                </option>
+
+                                <option value="2nd Year">
+                                    2nd Year
+                                </option>
+
+                                <option value="3rd Year">
+                                    3rd Year
+                                </option>
+
+                                <option value="4th Year">
+                                    4th Year
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Email
+                            </label>
+
+                            <input
+                                type="email"
+                                id="profileEmail">
+
+                        </div>
+
+
+
+                        <div class="form-group full-width">
+
+                            <label>
+                                Phone Number
+                            </label>
+
+                            <input
+                                type="tel"
+                                id="profilePhone"
+                                placeholder="Enter phone number">
+
+                        </div>
+
+
+
+                        <div class="full-width">
+
+                            <button
+                                type="submit"
+                                class="save-profile-btn">
+
+                                Save Profile
+
+                            </button>
+
+
+                            <span
+                                id="saveMessage"
+                                class="save-message">
+
+                            </span>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+</div>
+
+
+<script src="student-dashboard.js"></script>
+
+</body>
+
+</html>
