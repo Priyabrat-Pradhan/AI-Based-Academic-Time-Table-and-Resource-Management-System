@@ -1,39 +1,3 @@
-/*function Navbar({ activePage }) {
-
-  return (
-    <header className="navbar">
-
-      <div>
-        <h1>{activePage}</h1>
-
-        <p>
-          AI Based Academic Timetable & Resource Management
-        </p>
-      </div>
-
-      <div className="admin-profile">
-
-        <div className="notification">
-          🔔
-        </div>
-
-        <div className="avatar">
-          A
-        </div>
-
-        <div>
-          <strong>Admin</strong>
-          <small>Administrator</small>
-        </div>
-
-      </div>
-
-    </header>
-  );
-}
-
-export default Navbar;*/
-
 import { useState } from "react";
 
 function Navbar({ activePage, onLogout }) {
