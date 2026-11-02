@@ -1,0 +1,665 @@
+/* ===============================
+   BASIC RESET
+================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+
+    background:
+        radial-gradient(
+            circle at top right,
+            #172c52,
+            #101b46 45%,
+            #11183b 75%,
+            #0c1530
+        );
+
+    min-height: 100vh;
+}
+
+
+/* ===============================
+   NAVBAR
+================================ */
+
+.navbar {
+    height: 78px;
+    width: 100%;
+
+    padding: 0 7%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    position: relative;
+    z-index: 10;
+
+    background:
+        rgba(12, 21, 55, 0.92);
+
+    border-bottom:
+        1px solid rgba(255, 255, 255, 0.12);
+
+    backdrop-filter: blur(12px);
+}
+
+
+/* ===============================
+   LOGO
+================================ */
+
+.logo {
+    display: flex;
+    flex-direction: column;
+
+    font-size: 25px;
+    font-weight: 700;
+
+    letter-spacing: 0.5px;
+
+    line-height: 1.1;
+}
+
+.logo span {
+    color: #67d9ff;
+}
+
+.logo small {
+    display: block;
+
+    margin-top: 5px;
+
+    font-size: 11px;
+    font-weight: 500;
+
+    color: #aeb8cc;
+
+    letter-spacing: 0.8px;
+}
+
+
+/* ===============================
+   NAVIGATION
+================================ */
+
+.navbar nav {
+    display: flex;
+    align-items: center;
+
+    gap: 32px;
+}
+
+.navbar nav a {
+    color: #d9ddec;
+
+    text-decoration: none;
+
+    font-size: 15px;
+
+    transition: 0.3s;
+}
+
+.navbar nav a:hover {
+    color: #72ddff;
+}
+
+
+/* ===============================
+   ACTIVE HOME
+================================ */
+
+.navbar nav .active {
+    background:
+        linear-gradient(
+            135deg,
+            #694cff,
+            #8a5cff
+        );
+
+    color: white;
+
+    padding: 10px 22px;
+
+    border-radius: 25px;
+}
+
+
+/* ===============================
+   REGISTER
+================================ */
+
+.register-btn {
+    padding: 10px 22px;
+
+    border-radius: 25px;
+
+    background:
+        rgba(85, 202, 240, 0.20);
+
+    border:
+        1px solid rgba(100, 220, 255, 0.20);
+}
+
+
+/* ===============================
+   COLLEGE PHOTO
+================================ */
+
+.college-image {
+    width: 100%;
+    height: 430px;
+
+    position: relative;
+
+    overflow: hidden;
+}
+
+
+/* IMAGE */
+
+.college-image img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+    object-position: center;
+
+    display: block;
+}
+
+
+/* DARK OVERLAY */
+
+.image-overlay {
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(10, 20, 55, 0.05),
+            rgba(10, 18, 55, 0.20)
+        );
+}
+
+
+/* ===============================
+   HERO
+================================ */
+
+.hero {
+    min-height: 480px;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+
+    padding: 80px 20px;
+
+    background:
+        radial-gradient(
+            circle at 20% 20%,
+            rgba(52, 80, 180, 0.25),
+            transparent 40%
+        ),
+
+        radial-gradient(
+            circle at 80% 40%,
+            rgba(70, 55, 180, 0.25),
+            transparent 45%
+        );
+}
+
+
+/* HERO CONTENT */
+
+.hero-content {
+    max-width: 900px;
+}
+
+
+/* ===============================
+   WELCOME
+================================ */
+
+.welcome {
+    font-size: 14px;
+
+    font-weight: 600;
+
+    letter-spacing: 4px;
+
+    color: #bfc8dd;
+
+    margin-bottom: 15px;
+}
+
+
+/* ===============================
+   MAIN HEADING
+================================ */
+
+.hero h1 {
+    font-size: clamp(42px, 6vw, 70px);
+
+    line-height: 1.1;
+
+    font-weight: 800;
+
+    color: #ffffff;
+}
+
+
+/* BLUE GRADIENT TEXT */
+
+.hero h1 span {
+    background:
+        linear-gradient(
+            90deg,
+            #61d9ff,
+            #9f8cff
+        );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+
+    color: transparent;
+}
+
+
+/* ===============================
+   SUBTITLE
+================================ */
+
+.subtitle {
+    font-size: 22px;
+
+    font-weight: 600;
+
+    margin-top: 22px;
+
+    color: #e1e5f2;
+}
+
+
+/* ===============================
+   DESCRIPTION
+================================ */
+
+.description {
+    max-width: 720px;
+
+    margin: 18px auto 0;
+
+    color: #b9c2d7;
+
+    font-size: 16px;
+
+    line-height: 1.7;
+}
+
+
+/* ===============================
+   BUTTONS
+================================ */
+
+.buttons {
+    margin-top: 30px;
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 15px;
+}
+
+
+.primary-btn,
+.secondary-btn {
+    text-decoration: none;
+
+    padding: 13px 28px;
+
+    border-radius: 25px;
+
+    font-size: 15px;
+
+    font-weight: 600;
+
+    transition: 0.3s;
+}
+
+
+/* PRIMARY BUTTON */
+
+.primary-btn {
+    background:
+        linear-gradient(
+            135deg,
+            #6c4cff,
+            #8c5cff
+        );
+
+    color: white;
+
+    box-shadow:
+        0 8px 25px rgba(105, 75, 255, 0.25);
+}
+
+.primary-btn:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 12px 30px rgba(105, 75, 255, 0.4);
+}
+
+
+/* SECONDARY BUTTON */
+
+.secondary-btn {
+    color: #ffffff;
+
+    border:
+        1px solid rgba(255, 255, 255, 0.30);
+}
+
+.secondary-btn:hover {
+    background:
+        rgba(255, 255, 255, 0.10);
+
+    transform: translateY(-3px);
+}
+
+
+/* ===============================
+   FEATURES
+================================ */
+
+.features {
+    padding: 90px 7%;
+
+    background:
+        rgba(7, 14, 40, 0.45);
+}
+
+
+/* SECTION TITLE */
+
+.section-title {
+    text-align: center;
+
+    max-width: 750px;
+
+    margin: 0 auto 55px;
+}
+
+.section-title p {
+    color: #65d9ff;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    letter-spacing: 3px;
+
+    margin-bottom: 12px;
+}
+
+.section-title h2 {
+    font-size: 38px;
+
+    line-height: 1.2;
+}
+
+
+/* ===============================
+   FEATURE GRID
+================================ */
+
+.feature-container {
+    max-width: 1200px;
+
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 22px;
+}
+
+
+/* ===============================
+   FEATURE CARD
+================================ */
+
+.feature-card {
+    padding: 32px 24px;
+
+    text-align: center;
+
+    border-radius: 15px;
+
+    background:
+        rgba(255, 255, 255, 0.06);
+
+    border:
+        1px solid rgba(255, 255, 255, 0.09);
+
+    transition: 0.3s;
+}
+
+.feature-card:hover {
+    transform: translateY(-7px);
+
+    background:
+        rgba(255, 255, 255, 0.09);
+}
+
+
+/* ICON */
+
+.icon {
+    font-size: 38px;
+
+    margin-bottom: 18px;
+}
+
+
+.feature-card h3 {
+    font-size: 19px;
+
+    margin-bottom: 12px;
+}
+
+
+.feature-card p {
+    color: #aeb8cc;
+
+    font-size: 14px;
+
+    line-height: 1.6;
+}
+
+
+/* ===============================
+   ABOUT
+================================ */
+
+.about {
+    padding: 100px 7%;
+
+    text-align: center;
+}
+
+
+.about-content {
+    max-width: 850px;
+
+    margin: auto;
+}
+
+
+.about-title {
+    color: #65d9ff;
+
+    font-size: 13px;
+
+    letter-spacing: 3px;
+
+    font-weight: 700;
+
+    margin-bottom: 15px;
+}
+
+
+.about h2 {
+    font-size: 40px;
+
+    margin-bottom: 25px;
+}
+
+
+.about-content > p:last-child {
+    color: #b5bfd3;
+
+    line-height: 1.8;
+
+    font-size: 17px;
+}
+
+
+/* ===============================
+   FOOTER
+================================ */
+
+footer {
+    text-align: center;
+
+    padding: 40px 20px;
+
+    background:
+        rgba(5, 10, 28, 0.8);
+
+    border-top:
+        1px solid rgba(255, 255, 255, 0.08);
+}
+
+
+footer h3 {
+    margin-bottom: 10px;
+}
+
+
+footer p {
+    color: #929db4;
+
+    margin-bottom: 12px;
+}
+
+
+footer small {
+    color: #69758d;
+}
+
+
+/* ===============================
+   RESPONSIVE - TABLET
+================================ */
+
+@media (max-width: 850px) {
+
+    .navbar {
+        padding: 0 4%;
+    }
+
+    .navbar nav {
+        gap: 12px;
+    }
+
+    .college-image {
+        height: 350px;
+    }
+
+    .feature-container {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+}
+
+
+/* ===============================
+   RESPONSIVE - MOBILE
+================================ */
+
+@media (max-width: 600px) {
+
+    .navbar {
+        height: auto;
+
+        padding: 18px 20px;
+
+        flex-direction: column;
+
+        gap: 18px;
+    }
+
+    .logo {
+        align-items: center;
+
+        text-align: center;
+    }
+
+    .navbar nav {
+        flex-wrap: wrap;
+
+        justify-content: center;
+    }
+
+    .college-image {
+        height: 280px;
+    }
+
+    .hero {
+        padding: 70px 20px;
+    }
+
+    .hero h1 {
+        font-size: 40px;
+    }
+
+    .buttons {
+        flex-direction: column;
+
+        align-items: center;
+    }
+
+    .feature-container {
+        grid-template-columns: 1fr;
+    }
+
+    .section-title h2 {
+        font-size: 30px;
+    }
+
+    .about h2 {
+        font-size: 30px;
+    }
+}
