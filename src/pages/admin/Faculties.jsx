@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 
 const departments = ["Computer Science and Engineering", "Mining Engineering", "Electrical Engineering", "Mechanical Engineering", "Civil Engineering"];
