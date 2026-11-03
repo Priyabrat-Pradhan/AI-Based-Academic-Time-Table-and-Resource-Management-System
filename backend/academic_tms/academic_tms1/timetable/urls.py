@@ -12,5 +12,6 @@ router.register(r'timetable', views.TimetableEntryViewSet)
 router.register(r'tasks', views.TaskViewSet)
 
 urlpatterns = [
+    path('dashboard/', views.dashboard_summary, name='dashboard-summary'),
     path('', include(router.urls)),
 ]

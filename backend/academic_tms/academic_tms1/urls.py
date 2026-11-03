@@ -7,5 +7,5 @@ admin.site.index_title = "GCE Administration"
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include('timetable.urls')),
+    path('api/', include('academic_tms1.timetable.urls')),
 ]

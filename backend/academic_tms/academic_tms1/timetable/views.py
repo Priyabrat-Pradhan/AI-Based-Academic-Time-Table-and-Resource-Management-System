@@ -1,5 +1,5 @@
 from rest_framework import viewsets, status
-from rest_framework.decorators import action
+from rest_framework.decorators import action, api_view
 from rest_framework.response import Response
 from django.db.models import Q
 from .models import Department, AcademicSemester, Teacher, Subject, Classroom, TimetableEntry, Task
@@ -8,6 +8,19 @@ from .serializers import (
     SubjectSerializer, ClassroomSerializer, TimetableEntrySerializer, TaskSerializer
 )
 from . import ai_services
+
+
+@api_view(['GET'])
+def dashboard_summary(request):
+    return Response({
+        'faculties': Teacher.objects.count(),
+        'students': None,
+        'departments': Department.objects.count(),
+        'subjects': Subject.objects.count(),
+        'classrooms': Classroom.objects.exclude(room_type='Laboratory').count(),
+        'laboratories': Classroom.objects.filter(room_type='Laboratory').count(),
+        'resources': None,
+    })
 
 
 class DepartmentViewSet(viewsets.ModelViewSet):
