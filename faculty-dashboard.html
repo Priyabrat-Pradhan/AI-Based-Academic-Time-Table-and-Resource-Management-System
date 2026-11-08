@@ -1,0 +1,2961 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Faculty Dashboard | AI SmartTime</title>
+
+    <link rel="stylesheet" href="faculty-dashboard.css">
+</head>
+
+<body>
+
+<div class="dashboard-wrapper">
+
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
+
+    <aside class="sidebar">
+
+        <!-- BRAND -->
+        <div class="sidebar-brand">
+
+            <div class="sidebar-brand-title">
+                <span>AI</span> SmartTime
+            </div>
+
+            <small>ACADEMIC TIMETABLE</small>
+
+        </div>
+
+
+        <!-- FACULTY PROFILE -->
+
+        <div class="faculty-profile">
+
+            <img
+                id="sidebarProfilePhoto"
+                src="faculty.jpg"
+                alt="Faculty Profile"
+                class="profile-photo"
+            >
+
+            <h3 id="sidebarFacultyName">
+                Prof. Rahul
+            </h3>
+
+            <p>
+                Faculty
+            </p>
+
+        </div>
+
+
+        <!-- SIDEBAR MENU -->
+
+        <div class="sidebar-menu">
+
+            <div class="menu-title">
+                Main Menu
+            </div>
+
+
+            <a
+                href="#"
+                class="menu-item active"
+                onclick="showDashboard(event)"
+            >
+                <span>Dashboard</span>
+            </a>
+
+
+            <a
+                href="#"
+                class="menu-item"
+                onclick="showTimetable(event)"
+            >
+                <span>My Timetable</span>
+            </a>
+
+
+            <a
+                href="#"
+                class="menu-item"
+                onclick="showLeave(event)"
+            >
+                <span>Apply Leave</span>
+            </a>
+
+
+            <a
+                href="#"
+                class="menu-item"
+                onclick="showSubstitute(event)"
+            >
+                <span>Substitute Request</span>
+            </a>
+
+
+            <a
+                href="#"
+                class="menu-item"
+                onclick="showProfile(event)"
+            >
+                <span>Profile</span>
+            </a>
+
+        </div>
+
+
+        <!-- LOGOUT -->
+
+        <div class="sidebar-bottom">
+
+            <button
+                class="menu-item logout-btn"
+                onclick="logout()"
+            >
+                <span>Logout</span>
+            </button>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+    ====================================================== -->
+
+    <main class="main-content">
+
+
+        <!-- TOP HEADER -->
+
+        <header class="top-header">
+
+            <div class="page-title">
+
+                <h2 id="pageTitle">
+                    Faculty Dashboard
+                </h2>
+
+                <p id="pageSubtitle">
+                    Manage your academic activities
+                </p>
+
+            </div>
+
+
+            <div class="header-right">
+
+                <div class="date-box">
+                    <span id="currentDate"></span>
+                </div>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- =================================================
+             CONTENT AREA
+        ================================================== -->
+
+        <div class="content-area">
+
+
+            <!-- =================================================
+                 DASHBOARD CONTENT
+            ================================================== -->
+
+            <div id="dashboardContent">
+
+
+                <!-- WELCOME BOX -->
+
+                <div class="welcome-box">
+
+                    <h1>
+                        Welcome back,
+                        <span id="welcomeFacultyName">
+                            Prof. Rahul
+                        </span>
+                    </h1>
+
+                    <p>
+                        Manage your academic timetable, leave requests
+                        and substitute arrangements from here.
+                    </p>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     STATISTICS
+                ================================================== -->
+
+                <div class="stats-grid">
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon">
+                            Classes
+                        </div>
+
+                        <div>
+                            <h3>5</h3>
+                            <p>Classes Today</p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon">
+                            Subjects
+                        </div>
+
+                        <div>
+                            <h3>4</h3>
+                            <p>Subjects</p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon">
+                            Leaves
+                        </div>
+
+                        <div>
+                            <h3 id="leaveCount">0</h3>
+                            <p>Leave Requests</p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     TODAY'S TIMETABLE
+                ================================================== -->
+
+                <div class="section-card">
+
+                    <div class="section-header">
+
+                        <div>
+                            <h2>
+                                Today's Timetable
+                            </h2>
+
+                            <p>
+                                Your scheduled classes for today
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="table-container">
+
+                        <table class="timetable">
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>Time</th>
+                                    <th>Subject</th>
+                                    <th>Semester</th>
+                                    <th>Branch</th>
+                                    <th>Classroom</th>
+                                    <th>Status</th>
+
+                                </tr>
+
+                            </thead>
+
+
+                            <tbody>
+
+                                <tr>
+
+                                    <td>09:00 - 10:00</td>
+
+                                    <td class="subject-name">
+                                        Data Mining
+                                    </td>
+
+                                    <td>5th</td>
+
+                                    <td>CSE</td>
+
+                                    <td>Room 301</td>
+
+                                    <td>
+                                        <span class="status-badge scheduled">
+                                            Scheduled
+                                        </span>
+                                    </td>
+
+                                </tr>
+
+
+                                <tr>
+
+                                    <td>10:00 - 11:00</td>
+
+                                    <td class="subject-name">
+                                        DBMS
+                                    </td>
+
+                                    <td>5th</td>
+
+                                    <td>CSE</td>
+
+                                    <td>Room 302</td>
+
+                                    <td>
+                                        <span class="status-badge scheduled">
+                                            Scheduled
+                                        </span>
+                                    </td>
+
+                                </tr>
+
+
+                                <tr>
+
+                                    <td>11:30 - 12:30</td>
+
+                                    <td class="subject-name">
+                                        Operating System
+                                    </td>
+
+                                    <td>5th</td>
+
+                                    <td>CSE</td>
+
+                                    <td>Room 204</td>
+
+                                    <td>
+                                        <span class="status-badge scheduled">
+                                            Scheduled
+                                        </span>
+                                    </td>
+
+                                </tr>
+
+
+                                <tr>
+
+                                    <td>02:00 - 03:00</td>
+
+                                    <td class="subject-name">
+                                        Computer Networks
+                                    </td>
+
+                                    <td>5th</td>
+
+                                    <td>CSE</td>
+
+                                    <td>Lab 2</td>
+
+                                    <td>
+                                        <span class="status-badge scheduled">
+                                            Scheduled
+                                        </span>
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     QUICK ACTIONS
+                ================================================== -->
+
+                <div class="section-card">
+
+                    <div class="section-header">
+
+                        <div>
+
+                            <h2>
+                                Quick Actions
+                            </h2>
+
+                            <p>
+                                Frequently used faculty options
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="quick-actions">
+
+
+                        <div
+                            class="quick-action"
+                            onclick="showLeave()"
+                        >
+
+                            <strong>
+                                Apply for Leave
+                            </strong>
+
+                            <span>
+                                Submit a new leave request
+                            </span>
+
+                        </div>
+
+
+                        <div
+                            class="quick-action"
+                            onclick="showSubstitute()"
+                        >
+
+                            <strong>
+                                Request Substitute
+                            </strong>
+
+                            <span>
+                                Check faculty availability and request a substitute
+                            </span>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 PROFILE CONTENT
+            ================================================== -->
+
+            <div
+                id="profileContent"
+                style="display:none;"
+            >
+
+                <div class="profile-card">
+
+
+                    <div class="profile-top">
+
+                        <img
+                            id="profilePreview"
+                            src="faculty.jpg"
+                            alt="Faculty Profile"
+                            class="large-profile-photo"
+                        >
+
+
+                        <div class="photo-controls">
+
+                            <h3>
+                                Profile Photo
+                            </h3>
+
+                            <p>
+                                Upload a JPG, PNG or other image up to 2 MB.
+                            </p>
+
+
+                            <label
+                                for="photoInput"
+                                class="change-photo-btn"
+                            >
+                                Change Photo
+                            </label>
+
+
+                            <input
+                                type="file"
+                                id="photoInput"
+                                accept="image/*"
+                                hidden
+                            >
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- PROFILE FORM -->
+
+                    <div class="profile-form">
+
+
+                        <div class="form-group">
+
+                            <label for="facultyName">
+                                Full Name
+                            </label>
+
+                            <input
+                                type="text"
+                                id="facultyName"
+                                value="Prof. Rahul"
+                                placeholder="Enter faculty name"
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="facultyEmail">
+                                Email Address
+                            </label>
+
+                            <input
+                                type="email"
+                                id="facultyEmail"
+                                value="rahul@gcek.ac.in"
+                                readonly
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="facultyId">
+                                Faculty ID
+                            </label>
+
+                            <input
+                                type="text"
+                                id="facultyId"
+                                value="FAC001"
+                                placeholder="Faculty ID"
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="department">
+                                Department
+                            </label>
+
+                            <input
+                                type="text"
+                                id="department"
+                                value="Computer Science & Engineering"
+                                readonly
+                            >
+
+                        </div>
+
+
+                    </div>
+
+
+                    <button
+                        class="save-profile-btn"
+                        onclick="saveProfile()"
+                    >
+                        Save Changes
+                    </button>
+
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 TIMETABLE CONTENT
+            ================================================== -->
+
+            <div
+                id="timetableContent"
+                style="display:none;"
+            >
+
+                <div class="section-card">
+
+                    <div class="section-header">
+
+                        <div>
+
+                            <h2>
+                                My Timetable
+                            </h2>
+
+                            <p>
+                                Faculty weekly academic schedule
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="table-container">
+
+                        <table class="timetable weekly-table">
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>Day</th>
+                                    <th>Time</th>
+                                    <th>Subject</th>
+                                    <th>Semester</th>
+                                    <th>Branch</th>
+                                    <th>Classroom</th>
+
+                                </tr>
+
+                            </thead>
+
+
+                            <tbody>
+
+
+                                <tr>
+
+                                    <td>
+                                        Monday
+                                    </td>
+
+                                    <td>
+                                        09:00 - 10:00
+                                    </td>
+
+                                    <td class="subject-name">
+                                        Data Mining
+                                    </td>
+
+                                    <td>
+                                        5th
+                                    </td>
+
+                                    <td>
+                                        CSE
+                                    </td>
+
+                                    <td>
+                                        Room 301
+                                    </td>
+
+                                </tr>
+
+
+                                <tr>
+
+                                    <td>
+                                        Tuesday
+                                    </td>
+
+                                    <td>
+                                        10:00 - 11:00
+                                    </td>
+
+                                    <td class="subject-name">
+                                        DBMS
+                                    </td>
+
+                                    <td>
+                                        5th
+                                    </td>
+
+                                    <td>
+                                        CSE
+                                    </td>
+
+                                    <td>
+                                        Room 302
+                                    </td>
+
+                                </tr>
+
+
+                                <tr>
+
+                                    <td>
+                                        Wednesday
+                                    </td>
+
+                                    <td>
+                                        11:30 - 12:30
+                                    </td>
+
+                                    <td class="subject-name">
+                                        Operating System
+                                    </td>
+
+                                    <td>
+                                        5th
+                                    </td>
+
+                                    <td>
+                                        CSE
+                                    </td>
+
+                                    <td>
+                                        Room 204
+                                    </td>
+
+                                </tr>
+
+
+                                <tr>
+
+                                    <td>
+                                        Thursday
+                                    </td>
+
+                                    <td>
+                                        02:00 - 03:00
+                                    </td>
+
+                                    <td class="subject-name">
+                                        Computer Networks
+                                    </td>
+
+                                    <td>
+                                        5th
+                                    </td>
+
+                                    <td>
+                                        CSE
+                                    </td>
+
+                                    <td>
+                                        Lab 2
+                                    </td>
+
+                                </tr>
+
+
+                                <tr>
+
+                                    <td>
+                                        Friday
+                                    </td>
+
+                                    <td>
+                                        09:00 - 10:00
+                                    </td>
+
+                                    <td class="subject-name">
+                                        Data Mining
+                                    </td>
+
+                                    <td>
+                                        5th
+                                    </td>
+
+                                    <td>
+                                        CSE
+                                    </td>
+
+                                    <td>
+                                        Room 301
+                                    </td>
+
+                                </tr>
+
+
+                                <tr>
+
+                                    <td>
+                                        Friday
+                                    </td>
+
+                                    <td>
+                                        11:30 - 12:30
+                                    </td>
+
+                                    <td class="subject-name">
+                                        DBMS
+                                    </td>
+
+                                    <td>
+                                        5th
+                                    </td>
+
+                                    <td>
+                                        CSE
+                                    </td>
+
+                                    <td>
+                                        Room 302
+                                    </td>
+
+                                </tr>
+
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 APPLY LEAVE CONTENT
+            ================================================== -->
+
+            <div
+                id="leaveContent"
+                style="display:none;"
+            >
+
+                <!-- LEAVE APPLICATION -->
+
+                <div class="section-card">
+
+                    <div class="section-header">
+
+                        <div>
+
+                            <h2>
+                                Apply for Leave
+                            </h2>
+
+                            <p>
+                                Submit your faculty leave application
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-card-body">
+
+                        <form
+                            id="leaveForm"
+                            onsubmit="submitLeave(event)"
+                        >
+
+                            <div class="form-grid">
+
+
+                                <!-- FACULTY ID -->
+
+                                <div class="form-group">
+
+                                    <label for="leaveFacultyId">
+                                        Faculty ID
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        id="leaveFacultyId"
+                                        placeholder="Enter faculty ID"
+                                        required
+                                    >
+
+                                </div>
+
+
+                                <!-- FACULTY NAME -->
+
+                                <div class="form-group">
+
+                                    <label for="leaveFacultyName">
+                                        Faculty Name
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        id="leaveFacultyName"
+                                        placeholder="Enter faculty name"
+                                        required
+                                    >
+
+                                </div>
+
+
+                                <!-- FROM -->
+
+                                <div class="form-group">
+
+                                    <label for="leaveFrom">
+                                        From Date
+                                    </label>
+
+                                    <input
+                                        type="date"
+                                        id="leaveFrom"
+                                        required
+                                    >
+
+                                </div>
+
+
+                                <!-- TO -->
+
+                                <div class="form-group">
+
+                                    <label for="leaveTo">
+                                        To Date
+                                    </label>
+
+                                    <input
+                                        type="date"
+                                        id="leaveTo"
+                                        required
+                                    >
+
+                                </div>
+
+
+                                <!-- REASON -->
+
+                                <div class="form-group full-width">
+
+                                    <label for="leaveReason">
+                                        Reason for Leave
+                                    </label>
+
+                                    <textarea
+                                        id="leaveReason"
+                                        rows="4"
+                                        placeholder="Enter the reason for your leave"
+                                        required
+                                    ></textarea>
+
+                                </div>
+
+                            </div>
+
+
+                            <button
+                                type="submit"
+                                class="primary-btn"
+                            >
+                                Submit Leave Request
+                            </button>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- LEAVE HISTORY -->
+
+                <div class="section-card">
+
+                    <div class="section-header">
+
+                        <div>
+
+                            <h2>
+                                Leave Request Status
+                            </h2>
+
+                            <p>
+                                Track your submitted leave applications
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="table-container">
+
+                        <table class="request-table">
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>Faculty ID</th>
+                                    <th>Faculty Name</th>
+                                    <th>From</th>
+                                    <th>To</th>
+                                    <th>Reason</th>
+                                    <th>Status</th>
+
+                                </tr>
+
+                            </thead>
+
+
+                            <tbody id="leaveTableBody">
+
+                                <tr id="noLeaveRow">
+
+                                    <td
+                                        colspan="6"
+                                        class="empty-row"
+                                    >
+                                        No leave requests submitted yet.
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 SUBSTITUTE CONTENT
+            ================================================== -->
+
+            <div
+                id="substituteContent"
+                style="display:none;"
+            >
+
+
+                <!-- SUBSTITUTE FORM -->
+
+                <div class="section-card">
+
+                    <div class="section-header">
+
+                        <div>
+
+                            <h2>
+                                Substitute Request
+                            </h2>
+
+                            <p>
+                                Find an available faculty member and submit a substitute request
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-card-body">
+
+                        <form
+                            id="substituteForm"
+                            onsubmit="submitSubstitute(event)"
+                        >
+
+                            <div class="form-grid">
+
+
+                                <!-- DATE -->
+
+                                <div class="form-group">
+
+                                    <label for="subDate">
+                                        Date
+                                    </label>
+
+                                    <input
+                                        type="date"
+                                        id="subDate"
+                                        required
+                                    >
+
+                                </div>
+
+
+                                <!-- FACULTY ID -->
+
+                                <div class="form-group">
+
+                                    <label for="subFacultyId">
+                                        Faculty ID
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        id="subFacultyId"
+                                        placeholder="Enter faculty ID"
+                                        required
+                                    >
+
+                                </div>
+
+
+                                <!-- FACULTY NAME -->
+
+                                <div class="form-group">
+
+                                    <label for="subFacultyName">
+                                        Faculty Name
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        id="subFacultyName"
+                                        placeholder="Enter faculty name"
+                                        required
+                                    >
+
+                                </div>
+
+
+                                <!-- SUBSTITUTE TEACHER -->
+
+                                <div class="form-group">
+
+                                    <label for="substituteTeacher">
+                                        Substitute Teacher
+                                    </label>
+
+                                    <select
+                                        id="substituteTeacher"
+                                        required
+                                    >
+
+                                        <option value="">
+                                            Select substitute teacher
+                                        </option>
+
+                                        <option
+                                            value="Prof. Anil Kumar"
+                                            data-id="FAC002"
+                                        >
+                                            Prof. Anil Kumar
+                                        </option>
+
+                                        <option
+                                            value="Prof. Sneha Das"
+                                            data-id="FAC003"
+                                        >
+                                            Prof. Sneha Das
+                                        </option>
+
+                                        <option
+                                            value="Prof. Rajesh Mohanty"
+                                            data-id="FAC004"
+                                        >
+                                            Prof. Rajesh Mohanty
+                                        </option>
+
+                                        <option
+                                            value="Prof. Priya Singh"
+                                            data-id="FAC005"
+                                        >
+                                            Prof. Priya Singh
+                                        </option>
+
+                                        <option
+                                            value="Prof. Amit Behera"
+                                            data-id="FAC006"
+                                        >
+                                            Prof. Amit Behera
+                                        </option>
+
+                                    </select>
+
+                                </div>
+
+
+                                <!-- SUBSTITUTE ID -->
+
+                                <div class="form-group">
+
+                                    <label for="subTeacherId">
+                                        Substitute Teacher ID
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        id="subTeacherId"
+                                        placeholder="Teacher ID"
+                                        readonly
+                                    >
+
+                                </div>
+
+
+                                <!-- AVAILABILITY -->
+
+                                <div class="form-group availability-group">
+
+                                    <label>
+                                        Teacher Availability
+                                    </label>
+
+                                    <div class="availability-row">
+
+                                        <button
+                                            type="button"
+                                            class="check-btn"
+                                            onclick="checkTeacherAvailability()"
+                                        >
+                                            Check Availability
+                                        </button>
+
+                                        <span
+                                            id="availabilityResult"
+                                            class="availability-result"
+                                        >
+                                            Please select date and teacher.
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+
+                                <!-- STATUS -->
+
+                                <div class="form-group">
+
+                                    <label for="subStatus">
+                                        Status
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        id="subStatus"
+                                        value="Pending"
+                                        readonly
+                                    >
+
+                                </div>
+
+                            </div>
+
+
+                            <button
+                                type="submit"
+                                id="substituteSubmitBtn"
+                                class="primary-btn"
+                                disabled
+                            >
+                                Submit Substitute Request
+                            </button>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- SUBSTITUTE HISTORY -->
+
+                <div class="section-card">
+
+                    <div class="section-header">
+
+                        <div>
+
+                            <h2>
+                                Substitute Request Status
+                            </h2>
+
+                            <p>
+                                Track your substitute requests
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="table-container">
+
+                        <table class="request-table">
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>Date</th>
+                                    <th>Faculty ID</th>
+                                    <th>Faculty Name</th>
+                                    <th>Substitute Teacher</th>
+                                    <th>Teacher ID</th>
+                                    <th>Status</th>
+
+                                </tr>
+
+                            </thead>
+
+
+                            <tbody id="substituteTableBody">
+
+                                <tr id="noSubstituteRow">
+
+                                    <td
+                                        colspan="6"
+                                        class="empty-row"
+                                    >
+                                        No substitute requests submitted yet.
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+    </main>
+
+</div>
+
+
+
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
+
+<script>
+
+/* =========================================================
+   PAGE LOAD
+========================================================= */
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    /* -----------------------------------------------------
+       LOGIN CHECK
+    ----------------------------------------------------- */
+
+    const loggedIn =
+        localStorage.getItem("loggedIn");
+
+    const userRole =
+        localStorage.getItem("userRole");
+
+
+    if (
+        loggedIn !== "true" ||
+        userRole !== "faculty"
+    ) {
+
+        window.location.href = "login.html";
+
+        return;
+    }
+
+
+
+    /* -----------------------------------------------------
+       USER DATA
+    ----------------------------------------------------- */
+
+    const userEmail =
+        localStorage.getItem("userEmail");
+
+    const userName =
+        localStorage.getItem("userName");
+
+    const savedFacultyName =
+        localStorage.getItem("facultyName");
+
+
+    const facultyName =
+        savedFacultyName ||
+        userName ||
+        "Prof. Rahul";
+
+
+
+    /* -----------------------------------------------------
+       DISPLAY FACULTY NAME
+    ----------------------------------------------------- */
+
+    const sidebarName =
+        document.getElementById("sidebarFacultyName");
+
+
+    if (sidebarName) {
+        sidebarName.textContent = facultyName;
+    }
+
+
+    const welcomeName =
+        document.getElementById("welcomeFacultyName");
+
+
+    if (welcomeName) {
+        welcomeName.textContent = facultyName;
+    }
+
+
+    const profileName =
+        document.getElementById("facultyName");
+
+
+    if (profileName) {
+        profileName.value = facultyName;
+    }
+
+
+
+    /* -----------------------------------------------------
+       DISPLAY EMAIL
+    ----------------------------------------------------- */
+
+    const profileEmail =
+        document.getElementById("facultyEmail");
+
+
+    if (
+        profileEmail &&
+        userEmail
+    ) {
+
+        profileEmail.value = userEmail;
+
+    }
+
+
+
+    /* -----------------------------------------------------
+       DEFAULT FACULTY ID
+    ----------------------------------------------------- */
+
+    const savedFacultyId =
+        localStorage.getItem("facultyId") ||
+        "FAC001";
+
+
+    const profileFacultyId =
+        document.getElementById("facultyId");
+
+
+    if (profileFacultyId) {
+        profileFacultyId.value = savedFacultyId;
+    }
+
+
+
+    /* -----------------------------------------------------
+       SAVE NAME
+    ----------------------------------------------------- */
+
+    localStorage.setItem(
+        "facultyName",
+        facultyName
+    );
+
+
+
+    /* -----------------------------------------------------
+       PROFILE PHOTO
+    ----------------------------------------------------- */
+
+    const savedPhoto =
+        localStorage.getItem("facultyProfilePhoto");
+
+
+    if (savedPhoto) {
+
+        const sidebarPhoto =
+            document.getElementById("sidebarProfilePhoto");
+
+        const profilePhoto =
+            document.getElementById("profilePreview");
+
+
+        if (sidebarPhoto) {
+            sidebarPhoto.src = savedPhoto;
+        }
+
+
+        if (profilePhoto) {
+            profilePhoto.src = savedPhoto;
+        }
+
+    }
+
+
+
+    /* -----------------------------------------------------
+       PHOTO CHANGE
+    ----------------------------------------------------- */
+
+    const photoInput =
+        document.getElementById("photoInput");
+
+
+    if (photoInput) {
+
+        photoInput.addEventListener(
+            "change",
+            function () {
+
+                const file =
+                    this.files[0];
+
+
+                if (!file) {
+                    return;
+                }
+
+
+                if (!file.type.startsWith("image/")) {
+
+                    alert(
+                        "Please select a valid image."
+                    );
+
+                    return;
+                }
+
+
+                if (file.size > 2 * 1024 * 1024) {
+
+                    alert(
+                        "Please select an image smaller than 2 MB."
+                    );
+
+                    return;
+                }
+
+
+                const reader =
+                    new FileReader();
+
+
+                reader.onload =
+                    function (event) {
+
+                        const image =
+                            event.target.result;
+
+
+                        const sidebarPhoto =
+                            document.getElementById(
+                                "sidebarProfilePhoto"
+                            );
+
+
+                        const profilePhoto =
+                            document.getElementById(
+                                "profilePreview"
+                            );
+
+
+                        if (sidebarPhoto) {
+                            sidebarPhoto.src = image;
+                        }
+
+
+                        if (profilePhoto) {
+                            profilePhoto.src = image;
+                        }
+
+
+                        localStorage.setItem(
+                            "facultyProfilePhoto",
+                            image
+                        );
+
+                    };
+
+
+                reader.readAsDataURL(file);
+
+            }
+        );
+
+    }
+
+
+
+    /* -----------------------------------------------------
+       CURRENT DATE
+    ----------------------------------------------------- */
+
+    const dateElement =
+        document.getElementById("currentDate");
+
+
+    if (dateElement) {
+
+        const today =
+            new Date();
+
+
+        dateElement.textContent =
+            today.toLocaleDateString(
+                "en-IN",
+                {
+                    day: "2-digit",
+                    month: "short",
+                    year: "numeric"
+                }
+            );
+
+    }
+
+
+
+    /* -----------------------------------------------------
+       SET DEFAULT VALUES FOR LEAVE
+    ----------------------------------------------------- */
+
+    const leaveFacultyId =
+        document.getElementById("leaveFacultyId");
+
+    const leaveFacultyName =
+        document.getElementById("leaveFacultyName");
+
+
+    if (leaveFacultyId) {
+        leaveFacultyId.value = savedFacultyId;
+    }
+
+
+    if (leaveFacultyName) {
+        leaveFacultyName.value = facultyName;
+    }
+
+
+
+    /* -----------------------------------------------------
+       SET DEFAULT VALUES FOR SUBSTITUTE
+    ----------------------------------------------------- */
+
+    const subFacultyId =
+        document.getElementById("subFacultyId");
+
+    const subFacultyName =
+        document.getElementById("subFacultyName");
+
+
+    if (subFacultyId) {
+        subFacultyId.value = savedFacultyId;
+    }
+
+
+    if (subFacultyName) {
+        subFacultyName.value = facultyName;
+    }
+
+
+
+    /* -----------------------------------------------------
+       SUBSTITUTE TEACHER ID
+    ----------------------------------------------------- */
+
+    const teacherSelect =
+        document.getElementById("substituteTeacher");
+
+
+    if (teacherSelect) {
+
+        teacherSelect.addEventListener(
+            "change",
+            function () {
+
+                const selected =
+                    this.options[this.selectedIndex];
+
+
+                const teacherId =
+                    selected.dataset.id || "";
+
+
+                document.getElementById(
+                    "subTeacherId"
+                ).value = teacherId;
+
+
+                document.getElementById(
+                    "availabilityResult"
+                ).textContent =
+                    "Please check teacher availability.";
+
+                document.getElementById(
+                    "availabilityResult"
+                ).className =
+                    "availability-result";
+
+
+                document.getElementById(
+                    "substituteSubmitBtn"
+                ).disabled = true;
+
+            }
+        );
+
+    }
+
+
+
+    /* -----------------------------------------------------
+       LOAD REQUEST HISTORY
+    ----------------------------------------------------- */
+
+    loadLeaveRequests();
+
+    loadSubstituteRequests();
+
+    updateLeaveCount();
+
+});
+
+
+
+/* =========================================================
+   HIDE ALL SECTIONS
+========================================================= */
+
+function hideAllSections() {
+
+    const sections = [
+
+        "dashboardContent",
+        "profileContent",
+        "timetableContent",
+        "leaveContent",
+        "substituteContent"
+
+    ];
+
+
+    sections.forEach(function (id) {
+
+        const element =
+            document.getElementById(id);
+
+
+        if (element) {
+            element.style.display = "none";
+        }
+
+    });
+
+}
+
+
+
+/* =========================================================
+   ACTIVE MENU
+========================================================= */
+
+function removeActiveMenu() {
+
+    document
+        .querySelectorAll(".menu-item")
+        .forEach(function (item) {
+
+            item.classList.remove("active");
+
+        });
+
+}
+
+
+
+/* =========================================================
+   PAGE HEADER
+========================================================= */
+
+function updatePageHeader(title, subtitle) {
+
+    const pageTitle =
+        document.getElementById("pageTitle");
+
+    const pageSubtitle =
+        document.getElementById("pageSubtitle");
+
+
+    if (pageTitle) {
+        pageTitle.textContent = title;
+    }
+
+
+    if (pageSubtitle) {
+        pageSubtitle.textContent = subtitle;
+    }
+
+}
+
+
+
+/* =========================================================
+   DASHBOARD
+========================================================= */
+
+function showDashboard(event) {
+
+    if (event) {
+        event.preventDefault();
+    }
+
+
+    hideAllSections();
+
+
+    document.getElementById(
+        "dashboardContent"
+    ).style.display = "block";
+
+
+    removeActiveMenu();
+
+
+    updatePageHeader(
+        "Faculty Dashboard",
+        "Manage your academic activities"
+    );
+
+
+    if (
+        event &&
+        event.currentTarget
+    ) {
+
+        event.currentTarget.classList.add("active");
+
+    }
+
+}
+
+
+
+/* =========================================================
+   TIMETABLE
+========================================================= */
+
+function showTimetable(event) {
+
+    if (event) {
+        event.preventDefault();
+    }
+
+
+    hideAllSections();
+
+
+    document.getElementById(
+        "timetableContent"
+    ).style.display = "block";
+
+
+    removeActiveMenu();
+
+
+    updatePageHeader(
+        "My Timetable",
+        "View your weekly academic schedule"
+    );
+
+
+    if (
+        event &&
+        event.currentTarget
+    ) {
+
+        event.currentTarget.classList.add("active");
+
+    }
+
+}
+
+
+
+/* =========================================================
+   PROFILE
+========================================================= */
+
+function showProfile(event) {
+
+    if (event) {
+        event.preventDefault();
+    }
+
+
+    hideAllSections();
+
+
+    document.getElementById(
+        "profileContent"
+    ).style.display = "block";
+
+
+    removeActiveMenu();
+
+
+    updatePageHeader(
+        "My Profile",
+        "Manage your faculty profile"
+    );
+
+
+    if (
+        event &&
+        event.currentTarget
+    ) {
+
+        event.currentTarget.classList.add("active");
+
+    }
+
+}
+
+
+
+/* =========================================================
+   APPLY LEAVE
+========================================================= */
+
+function showLeave(event) {
+
+    if (event) {
+        event.preventDefault();
+    }
+
+
+    hideAllSections();
+
+
+    document.getElementById(
+        "leaveContent"
+    ).style.display = "block";
+
+
+    removeActiveMenu();
+
+
+    updatePageHeader(
+        "Apply Leave",
+        "Submit and track your faculty leave request"
+    );
+
+
+    if (
+        event &&
+        event.currentTarget
+    ) {
+
+        event.currentTarget.classList.add("active");
+
+    }
+
+
+    loadLeaveRequests();
+
+}
+
+
+
+/* =========================================================
+   SUBSTITUTE
+========================================================= */
+
+function showSubstitute(event) {
+
+    if (event) {
+        event.preventDefault();
+    }
+
+
+    hideAllSections();
+
+
+    document.getElementById(
+        "substituteContent"
+    ).style.display = "block";
+
+
+    removeActiveMenu();
+
+
+    updatePageHeader(
+        "Substitute Request",
+        "Check faculty availability and request a substitute"
+    );
+
+
+    if (
+        event &&
+        event.currentTarget
+    ) {
+
+        event.currentTarget.classList.add("active");
+
+    }
+
+
+    loadSubstituteRequests();
+
+}
+
+
+
+/* =========================================================
+   SAVE PROFILE
+========================================================= */
+
+function saveProfile() {
+
+    const nameInput =
+        document.getElementById("facultyName");
+
+    const idInput =
+        document.getElementById("facultyId");
+
+
+    if (!nameInput || !idInput) {
+        return;
+    }
+
+
+    const name =
+        nameInput.value.trim();
+
+    const facultyId =
+        idInput.value.trim();
+
+
+    if (name === "") {
+
+        alert(
+            "Please enter your name."
+        );
+
+        return;
+    }
+
+
+    if (facultyId === "") {
+
+        alert(
+            "Please enter your Faculty ID."
+        );
+
+        return;
+    }
+
+
+    localStorage.setItem(
+        "facultyName",
+        name
+    );
+
+
+    localStorage.setItem(
+        "userName",
+        name
+    );
+
+
+    localStorage.setItem(
+        "facultyId",
+        facultyId
+    );
+
+
+    document.getElementById(
+        "sidebarFacultyName"
+    ).textContent = name;
+
+
+    document.getElementById(
+        "welcomeFacultyName"
+    ).textContent = name;
+
+
+    document.getElementById(
+        "leaveFacultyId"
+    ).value = facultyId;
+
+
+    document.getElementById(
+        "leaveFacultyName"
+    ).value = name;
+
+
+    document.getElementById(
+        "subFacultyId"
+    ).value = facultyId;
+
+
+    document.getElementById(
+        "subFacultyName"
+    ).value = name;
+
+
+    alert(
+        "Profile updated successfully!"
+    );
+
+}
+
+
+
+/* =========================================================
+   SUBMIT LEAVE
+========================================================= */
+
+function submitLeave(event) {
+
+    event.preventDefault();
+
+
+    const facultyId =
+        document.getElementById(
+            "leaveFacultyId"
+        ).value.trim();
+
+
+    const facultyName =
+        document.getElementById(
+            "leaveFacultyName"
+        ).value.trim();
+
+
+    const from =
+        document.getElementById(
+            "leaveFrom"
+        ).value;
+
+
+    const to =
+        document.getElementById(
+            "leaveTo"
+        ).value;
+
+
+    const reason =
+        document.getElementById(
+            "leaveReason"
+        ).value.trim();
+
+
+    if (!facultyId ||
+        !facultyName ||
+        !from ||
+        !to ||
+        !reason) {
+
+        alert(
+            "Please fill all leave details."
+        );
+
+        return;
+    }
+
+
+    if (to < from) {
+
+        alert(
+            "To Date cannot be earlier than From Date."
+        );
+
+        return;
+    }
+
+
+
+    const leaveRequest = {
+
+        id: Date.now(),
+
+        facultyId: facultyId,
+
+        facultyName: facultyName,
+
+        from: from,
+
+        to: to,
+
+        reason: reason,
+
+        status: "Pending"
+
+    };
+
+
+
+    let requests =
+        JSON.parse(
+            localStorage.getItem(
+                "facultyLeaveRequests"
+            )
+        ) || [];
+
+
+    requests.push(leaveRequest);
+
+
+    localStorage.setItem(
+        "facultyLeaveRequests",
+        JSON.stringify(requests)
+    );
+
+
+    document.getElementById(
+        "leaveForm"
+    ).reset();
+
+
+    document.getElementById(
+        "leaveFacultyId"
+    ).value = localStorage.getItem(
+        "facultyId"
+    ) || "FAC001";
+
+
+    document.getElementById(
+        "leaveFacultyName"
+    ).value = localStorage.getItem(
+        "facultyName"
+    ) || "Prof. Rahul";
+
+
+    loadLeaveRequests();
+
+    updateLeaveCount();
+
+
+    alert(
+        "Leave request submitted successfully.\nStatus: Pending"
+    );
+
+}
+
+
+
+/* =========================================================
+   LOAD LEAVE REQUESTS
+========================================================= */
+
+function loadLeaveRequests() {
+
+    const tableBody =
+        document.getElementById(
+            "leaveTableBody"
+        );
+
+
+    if (!tableBody) {
+        return;
+    }
+
+
+    let requests =
+        JSON.parse(
+            localStorage.getItem(
+                "facultyLeaveRequests"
+            )
+        ) || [];
+
+
+    tableBody.innerHTML = "";
+
+
+    if (requests.length === 0) {
+
+        tableBody.innerHTML = `
+
+            <tr>
+
+                <td
+                    colspan="6"
+                    class="empty-row"
+                >
+                    No leave requests submitted yet.
+                </td>
+
+            </tr>
+
+        `;
+
+        return;
+    }
+
+
+
+    requests.forEach(function (request) {
+
+        const row =
+            document.createElement("tr");
+
+
+        row.innerHTML = `
+
+            <td>${escapeHTML(request.facultyId)}</td>
+
+            <td>${escapeHTML(request.facultyName)}</td>
+
+            <td>${formatDate(request.from)}</td>
+
+            <td>${formatDate(request.to)}</td>
+
+            <td>${escapeHTML(request.reason)}</td>
+
+            <td>
+                ${getStatusBadge(request.status)}
+            </td>
+
+        `;
+
+
+        tableBody.appendChild(row);
+
+    });
+
+}
+
+
+
+/* =========================================================
+   LEAVE COUNT
+========================================================= */
+
+function updateLeaveCount() {
+
+    const countElement =
+        document.getElementById("leaveCount");
+
+
+    if (!countElement) {
+        return;
+    }
+
+
+    const requests =
+        JSON.parse(
+            localStorage.getItem(
+                "facultyLeaveRequests"
+            )
+        ) || [];
+
+
+    countElement.textContent =
+        requests.length;
+
+}
+
+
+
+/* =========================================================
+   SUBSTITUTE TEACHER AVAILABILITY
+========================================================= */
+
+function checkTeacherAvailability() {
+
+    const date =
+        document.getElementById(
+            "subDate"
+        ).value;
+
+
+    const teacher =
+        document.getElementById(
+            "substituteTeacher"
+        );
+
+
+    const result =
+        document.getElementById(
+            "availabilityResult"
+        );
+
+
+    const submitButton =
+        document.getElementById(
+            "substituteSubmitBtn"
+        );
+
+
+    if (!date) {
+
+        result.textContent =
+            "Please select a date first.";
+
+        result.className =
+            "availability-result unavailable";
+
+        submitButton.disabled = true;
+
+        return;
+    }
+
+
+    if (!teacher.value) {
+
+        result.textContent =
+            "Please select a substitute teacher.";
+
+        result.className =
+            "availability-result unavailable";
+
+        submitButton.disabled = true;
+
+        return;
+    }
+
+
+    const teacherId =
+        teacher.options[
+            teacher.selectedIndex
+        ].dataset.id;
+
+
+
+    /*
+       DEMO AVAILABILITY SYSTEM
+
+       In a real system this information should
+       come from the faculty timetable/database.
+
+       Here we check already submitted substitute
+       requests for the same teacher and date.
+    */
+
+
+    const requests =
+        JSON.parse(
+            localStorage.getItem(
+                "facultySubstituteRequests"
+            )
+        ) || [];
+
+
+    const alreadyRequested =
+        requests.some(function (request) {
+
+            return (
+                request.date === date &&
+                request.teacherId === teacherId &&
+                request.status !== "Rejected"
+            );
+
+        });
+
+
+
+    if (alreadyRequested) {
+
+        result.textContent =
+            "Teacher is NOT available on this date.";
+
+        result.className =
+            "availability-result unavailable";
+
+
+        submitButton.disabled = true;
+
+
+        return;
+
+    }
+
+
+
+    /*
+       Demo timetable-based availability.
+       Some teachers are marked unavailable
+       on specific weekdays to demonstrate
+       the feature.
+    */
+
+    const selectedDate =
+        new Date(date + "T00:00:00");
+
+
+    const day =
+        selectedDate.getDay();
+
+
+    const unavailableRules = {
+
+        "FAC002": [1],
+
+        "FAC003": [2],
+
+        "FAC004": [3],
+
+        "FAC005": [4],
+
+        "FAC006": [5]
+
+    };
+
+
+    const unavailableDays =
+        unavailableRules[teacherId] || [];
+
+
+    if (
+        unavailableDays.includes(day)
+    ) {
+
+        result.textContent =
+            "Teacher is NOT available on this date.";
+
+        result.className =
+            "availability-result unavailable";
+
+
+        submitButton.disabled = true;
+
+        return;
+
+    }
+
+
+
+    result.textContent =
+        "Teacher is AVAILABLE for substitution.";
+
+    result.className =
+        "availability-result available";
+
+
+    submitButton.disabled = false;
+
+}
+
+
+
+/* =========================================================
+   SUBMIT SUBSTITUTE REQUEST
+========================================================= */
+
+function submitSubstitute(event) {
+
+    event.preventDefault();
+
+
+    const date =
+        document.getElementById(
+            "subDate"
+        ).value;
+
+
+    const facultyId =
+        document.getElementById(
+            "subFacultyId"
+        ).value.trim();
+
+
+    const facultyName =
+        document.getElementById(
+            "subFacultyName"
+        ).value.trim();
+
+
+    const teacher =
+        document.getElementById(
+            "substituteTeacher"
+        );
+
+
+    const teacherName =
+        teacher.value;
+
+
+    const teacherId =
+        document.getElementById(
+            "subTeacherId"
+        ).value;
+
+
+    const availability =
+        document.getElementById(
+            "availabilityResult"
+        );
+
+
+    if (!date ||
+        !facultyId ||
+        !facultyName ||
+        !teacherName ||
+        !teacherId) {
+
+        alert(
+            "Please fill all substitute request details."
+        );
+
+        return;
+    }
+
+
+    if (
+        !availability.classList.contains(
+            "available"
+        )
+    ) {
+
+        alert(
+            "Please check teacher availability before submitting."
+        );
+
+        return;
+    }
+
+
+
+    const substituteRequest = {
+
+        id: Date.now(),
+
+        date: date,
+
+        facultyId: facultyId,
+
+        facultyName: facultyName,
+
+        teacherName: teacherName,
+
+        teacherId: teacherId,
+
+        status: "Pending"
+
+    };
+
+
+
+    let requests =
+        JSON.parse(
+            localStorage.getItem(
+                "facultySubstituteRequests"
+            )
+        ) || [];
+
+
+    requests.push(
+        substituteRequest
+    );
+
+
+    localStorage.setItem(
+        "facultySubstituteRequests",
+        JSON.stringify(requests)
+    );
+
+
+
+    document.getElementById(
+        "substituteForm"
+    ).reset();
+
+
+    document.getElementById(
+        "subFacultyId"
+    ).value =
+        localStorage.getItem(
+            "facultyId"
+        ) || "FAC001";
+
+
+    document.getElementById(
+        "subFacultyName"
+    ).value =
+        localStorage.getItem(
+            "facultyName"
+        ) || "Prof. Rahul";
+
+
+    document.getElementById(
+        "subStatus"
+    ).value =
+        "Pending";
+
+
+    document.getElementById(
+        "substituteSubmitBtn"
+    ).disabled = true;
+
+
+    document.getElementById(
+        "availabilityResult"
+    ).textContent =
+        "Please select date and teacher.";
+
+
+    document.getElementById(
+        "availabilityResult"
+    ).className =
+        "availability-result";
+
+
+    loadSubstituteRequests();
+
+
+    alert(
+        "Substitute request submitted successfully.\nStatus: Pending"
+    );
+
+}
+
+
+
+/* =========================================================
+   LOAD SUBSTITUTE REQUESTS
+========================================================= */
+
+function loadSubstituteRequests() {
+
+    const tableBody =
+        document.getElementById(
+            "substituteTableBody"
+        );
+
+
+    if (!tableBody) {
+        return;
+    }
+
+
+    let requests =
+        JSON.parse(
+            localStorage.getItem(
+                "facultySubstituteRequests"
+            )
+        ) || [];
+
+
+    tableBody.innerHTML = "";
+
+
+    if (requests.length === 0) {
+
+        tableBody.innerHTML = `
+
+            <tr>
+
+                <td
+                    colspan="6"
+                    class="empty-row"
+                >
+                    No substitute requests submitted yet.
+                </td>
+
+            </tr>
+
+        `;
+
+        return;
+    }
+
+
+
+    requests.forEach(function (request) {
+
+        const row =
+            document.createElement("tr");
+
+
+        row.innerHTML = `
+
+            <td>
+                ${formatDate(request.date)}
+            </td>
+
+            <td>
+                ${escapeHTML(request.facultyId)}
+            </td>
+
+            <td>
+                ${escapeHTML(request.facultyName)}
+            </td>
+
+            <td class="subject-name">
+                ${escapeHTML(request.teacherName)}
+            </td>
+
+            <td>
+                ${escapeHTML(request.teacherId)}
+            </td>
+
+            <td>
+                ${getStatusBadge(request.status)}
+            </td>
+
+        `;
+
+
+        tableBody.appendChild(row);
+
+    });
+
+}
+
+
+
+/* =========================================================
+   STATUS BADGE
+========================================================= */
+
+function getStatusBadge(status) {
+
+    const normalized =
+        status.toLowerCase();
+
+
+    let className =
+        "pending";
+
+
+    if (normalized === "approved") {
+        className = "approved";
+    }
+
+
+    if (normalized === "rejected") {
+        className = "rejected";
+    }
+
+
+    return `
+
+        <span class="status-badge ${className}">
+            ${escapeHTML(status)}
+        </span>
+
+    `;
+
+}
+
+
+
+/* =========================================================
+   FORMAT DATE
+========================================================= */
+
+function formatDate(dateString) {
+
+    if (!dateString) {
+        return "-";
+    }
+
+
+    const date =
+        new Date(
+            dateString + "T00:00:00"
+        );
+
+
+    return date.toLocaleDateString(
+        "en-IN",
+        {
+            day: "2-digit",
+            month: "short",
+            year: "numeric"
+        }
+    );
+
+}
+
+
+
+/* =========================================================
+   BASIC HTML ESCAPE
+========================================================= */
+
+function escapeHTML(value) {
+
+    const div =
+        document.createElement("div");
+
+
+    div.textContent =
+        value || "";
+
+
+    return div.innerHTML;
+
+}
+
+
+
+/* =========================================================
+   LOGOUT
+========================================================= */
+
+function logout() {
+
+    localStorage.removeItem(
+        "loggedIn"
+    );
+
+
+    localStorage.removeItem(
+        "userRole"
+    );
+
+
+    localStorage.removeItem(
+        "userEmail"
+    );
+
+
+    localStorage.removeItem(
+        "userName"
+    );
+
+
+    window.location.href =
+        "login.html";
+
+}
+
+</script>
+
+
+</body>
+
+</html>
