@@ -1,6 +1,0 @@
-Django>=4.2
-mysqlclient
-djangorestframework
-python-dotenv
-openai>=1.0.0
-django-cors-headers
