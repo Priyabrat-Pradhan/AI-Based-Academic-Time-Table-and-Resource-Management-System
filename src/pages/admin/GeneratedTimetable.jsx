@@ -830,7 +830,7 @@ function GeneratedTimetable() {
 
   return (
 
-    <div className="faculties-page generated-timetable-page">
+    <div className="faculties-page">
 
       {/* PAGE HEADER */}
 
@@ -905,7 +905,7 @@ function GeneratedTimetable() {
         {/* EXPORT FORMAT */}
 
         <select
-          className="faculty-filter-select export-format-select"
+          className="faculty-filter-select"
           value={exportFormat}
           onChange={(event) => setExportFormat(event.target.value)}
         >
@@ -953,7 +953,7 @@ function GeneratedTimetable() {
 
       {/* RESULT MESSAGE */}
 
-      <div className="faculty-result-info timetable-result-info">
+      <div className="faculty-result-info">
 
         {!hasSelection ? (
 

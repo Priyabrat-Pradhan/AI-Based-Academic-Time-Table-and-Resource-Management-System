@@ -239,7 +239,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (user.role === "admin") {
 
                     window.location.replace(
-                        "./admin-dashboard.html"
+                        "./src/pages/admin/Dashboard.jsx"
                     );
 
 

@@ -933,11 +933,6 @@ td strong {
    GENERATED TIMETABLE 
 ============================== */
 /* TIMETABLE RESULT INFORMATION */
-.timetable-result-info {
-  margin: 12px 0;
-  line-height: 1.7;
-}
-
 .timetable-success-message {
   margin: 12px 0;
   padding: 11px 14px;
@@ -1222,6 +1217,7 @@ td strong {
   border: 1px solid rgba(239, 68, 68, 0.4);
 }
 
+/* all action-buttons */
 .action-buttons {
   display: flex;
   align-items: center;
@@ -1585,10 +1581,6 @@ select option {
   padding-left: 10px;
   padding-right: 25px;
   font-size: 12px;
-}
-
-.faculty-toolbar .export-format-select {
-  flex: 0 1 130px;
 }
 
 .faculty-toolbar .primary-button,
@@ -1962,10 +1954,6 @@ select option {
   .faculty-toolbar .faculty-filter-select {
     flex: 1 1 180px;
   }
-
-  .faculty-toolbar .export-format-select {
-    flex: 1 1 150px;
-  }
 }
 
 @media (max-width: 1000px) {
@@ -2013,7 +2001,6 @@ select option {
   }
 
   .faculty-toolbar .faculty-filter-select,
-  .faculty-toolbar .export-format-select,
   .faculty-toolbar .primary-button,
   .faculty-toolbar .secondary-button,
   .faculty-toolbar .faculty-clear-button {
@@ -2154,3 +2141,22 @@ select option {
     min-width: 150px;
   }
 }
+
+
+/* =========================================
+   AVAILABILITY TABLE - Faculty Availability
+========================================= */
+.generated-weekly-table .availability-cell {
+  white-space: nowrap;
+}
+
+.generated-weekly-table .availability-available {
+  color: #6ee7b7;
+  background: rgba(16, 185, 129, 0.12);
+}
+
+.generated-weekly-table .availability-unavailable {
+  color: #fca5a5;
+  background: rgba(239, 68, 68, 0.12);
+}
+
