@@ -1,4 +1,9 @@
+
 import { useState } from "react";
+
+/* =========================================
+   DEPARTMENTS, YEARS AND SEMESTERS
+========================================= */
 
 const departments = [
   "Computer Science and Engineering",
@@ -90,19 +95,7 @@ const subjectDetails = [
 
 
 /* =========================================
-   TIMETABLE DATA
-
-   start:
-   0 = 9:00-9:55
-   1 = 10:00-10:55
-   2 = 11:05-12:00
-   3 = 12:05-1:00
-   4 = Lunch
-   5 = 2:30-3:20
-   6 = 3:20-4:10
-   7 = 4:10-5:00
-
-   span = number of consecutive periods
+   SAMPLE TIMETABLE DATA
 ========================================= */
 
 const sampleSchedule = {
@@ -193,7 +186,6 @@ const sampleSchedule = {
     }
   ],
 
-  // Sessions used by the conflict checker
   sessions: [
     { day: "MON", start: 1, span: 1, code: "EEPE3005" },
     { day: "MON", start: 2, span: 1, code: "PCAC4001" },
@@ -239,7 +231,6 @@ const timeSlots = [
    HELPER FUNCTIONS
 ========================================= */
 
-// Find subject information using subject code
 const getSubject = (code) => {
   return subjectDetails.find(
     (subject) => subject.code === code
@@ -247,7 +238,6 @@ const getSubject = (code) => {
 };
 
 
-// Display timetable cell content
 const getCellLabel = (cell, schedule) => {
   if (cell.empty || !cell.code) {
     return cell.label || "X";
@@ -259,7 +249,6 @@ const getCellLabel = (cell, schedule) => {
     return "Unknown Subject";
   }
 
-  // Show room only for labs, seminars and projects
   if (
     ["Lab", "Seminar", "Project"].includes(subject.type)
   ) {
@@ -270,7 +259,6 @@ const getCellLabel = (cell, schedule) => {
 };
 
 
-// Escape text before inserting it into exported HTML
 const escapeHtml = (value) => {
   return String(value ?? "").replace(/[&<>"']/g, (character) => {
     const entities = {
@@ -292,7 +280,6 @@ const escapeHtml = (value) => {
    Checks:
    1. Same faculty in overlapping periods
    2. Same room in overlapping periods
-   3. Multi-period sessions
 ========================================= */
 
 const detectConflicts = (schedule) => {
@@ -321,7 +308,6 @@ const detectConflicts = (schedule) => {
     }
   });
 
-  // Compare every occupied slot with other occupied slots
   for (let i = 0; i < occupiedSlots.length; i++) {
     for (let j = i + 1; j < occupiedSlots.length; j++) {
       const first = occupiedSlots[i];
@@ -336,7 +322,6 @@ const detectConflicts = (schedule) => {
 
       if (first.code === second.code) continue;
 
-      // Same faculty assigned to two different subjects
       if (first.facultyId === second.facultyId) {
         const key = [
           "FACULTY",
@@ -358,7 +343,6 @@ const detectConflicts = (schedule) => {
         }
       }
 
-      // Same room assigned to two different subjects
       if (first.room === second.room) {
         const key = [
           "ROOM",
@@ -581,6 +565,7 @@ const createExportHtml = (schedule, conflicts) => {
 ========================================= */
 
 function GeneratedTimetable() {
+
   const [department, setDepartment] = useState("");
   const [year, setYear] = useState("");
   const [semester, setSemester] = useState("");
@@ -594,7 +579,14 @@ function GeneratedTimetable() {
 
   const [generationMessage, setGenerationMessage] = useState("");
 
-  // Check whether the selected combination has timetable data
+  // NEW: Timetable approval status
+  const [approvalStatus, setApprovalStatus] = useState("Pending");
+
+
+  /* =========================================
+     SELECTED TIMETABLE
+  ========================================= */
+
   const hasSelection = Boolean(
     department && year && semester
   );
@@ -608,46 +600,60 @@ function GeneratedTimetable() {
     ? generatedSchedule
     : null;
 
-  // Detect conflicts for the selected timetable
   const conflicts = activeSchedule
     ? detectConflicts(activeSchedule)
     : [];
 
-  // Department selection
+
+  /* =========================================
+     FILTER HANDLERS
+  ========================================= */
+
   const handleDepartmentChange = (event) => {
     setDepartment(event.target.value);
     setYear("");
     setSemester("");
     setShowDetails(false);
     setGenerationMessage("");
+    setApprovalStatus("Pending");
   };
 
-  // Year selection
   const handleYearChange = (event) => {
     setYear(event.target.value);
     setSemester("");
     setShowDetails(false);
     setGenerationMessage("");
+    setApprovalStatus("Pending");
   };
 
-  // Semester selection
   const handleSemesterChange = (event) => {
     setSemester(event.target.value);
     setShowDetails(false);
     setGenerationMessage("");
+    setApprovalStatus("Pending");
   };
 
-  // Clear filters
+
+  /* =========================================
+     CLEAR FILTERS
+  ========================================= */
+
   const handleClearFilters = () => {
     setDepartment("");
     setYear("");
     setSemester("");
     setShowDetails(false);
     setGenerationMessage("");
+    setApprovalStatus("Pending");
   };
 
-  // Generate / refresh timetable
+
+  /* =========================================
+     GENERATE TIMETABLE
+  ========================================= */
+
   const handleGenerateAgain = () => {
+
     if (!hasSelection) {
       alert("Please select department, year and semester first.");
       return;
@@ -660,30 +666,92 @@ function GeneratedTimetable() {
       return;
     }
 
-    // Refresh the current sample schedule.
-    // Replace this function with your Django AI-generation API later.
     setGeneratedSchedule({
       ...sampleSchedule,
+
       days: sampleSchedule.days.map((day) => ({
         ...day,
         beforeLunch: day.beforeLunch.map((cell) => ({ ...cell })),
         afterLunch: day.afterLunch.map((cell) => ({ ...cell }))
       })),
+
       sessions: sampleSchedule.sessions.map((session) => ({
         ...session
       }))
     });
 
     setShowDetails(false);
+
+    // Every newly generated timetable requires approval
+    setApprovalStatus("Pending");
+
     setGenerationMessage(
-      "Timetable refreshed and conflict checking completed."
+      "Timetable generated successfully. Please review and approve it before publishing."
     );
   };
 
-  // Export timetable
+
+  /* =========================================
+     APPROVE TIMETABLE
+  ========================================= */
+
+  const handleApprove = () => {
+
+    if (!activeSchedule) return;
+
+    if (conflicts.length > 0) {
+      alert(
+        "Cannot approve timetable. Please resolve all faculty and room conflicts first."
+      );
+      return;
+    }
+
+    const confirmApproval = window.confirm(
+      "Are you sure you want to approve this timetable?"
+    );
+
+    if (!confirmApproval) return;
+
+    setApprovalStatus("Approved");
+
+    setGenerationMessage(
+      "Timetable approved successfully. It is ready to be published."
+    );
+  };
+
+
+  /* =========================================
+     REJECT TIMETABLE
+  ========================================= */
+
+  const handleReject = () => {
+
+    if (!activeSchedule) return;
+
+    const confirmRejection = window.confirm(
+      "Are you sure you want to reject this timetable?"
+    );
+
+    if (!confirmRejection) return;
+
+    setApprovalStatus("Rejected");
+
+    setGenerationMessage(
+      "Timetable rejected. It will not be published to students or faculty."
+    );
+  };
+
+
+  /* =========================================
+     EXPORT TIMETABLE
+  ========================================= */
+
   const handleExport = () => {
+
     if (!activeSchedule) {
-      alert("Please select a department, year and semester with an available timetable.");
+      alert(
+        "Please select a department, year and semester with an available timetable."
+      );
       return;
     }
 
@@ -693,6 +761,7 @@ function GeneratedTimetable() {
     );
 
     if (exportFormat === "word") {
+
       const blob = new Blob(
         ["\ufeff", exportHtml],
         {
@@ -711,9 +780,9 @@ function GeneratedTimetable() {
       document.body.removeChild(link);
 
       URL.revokeObjectURL(url);
+
     } else {
-      // Opens the browser print window.
-      // Select "Save as PDF" in the print destination.
+
       const printWindow = window.open("", "_blank");
 
       if (!printWindow) {
@@ -734,8 +803,13 @@ function GeneratedTimetable() {
     }
   };
 
-  // Render a timetable cell
+
+  /* =========================================
+     RENDER TIMETABLE CELL
+  ========================================= */
+
   const renderCell = (cell, index) => {
+
     const isEmpty = cell.empty || !cell.code;
 
     return (
@@ -749,12 +823,16 @@ function GeneratedTimetable() {
     );
   };
 
+
+  /* =========================================
+     MAIN JSX
+  ========================================= */
+
   return (
+
     <div className="faculties-page generated-timetable-page">
 
-      {/* =====================================
-          PAGE HEADER
-      ===================================== */}
+      {/* PAGE HEADER */}
 
       <div className="page-header">
         <div>
@@ -767,13 +845,12 @@ function GeneratedTimetable() {
       </div>
 
 
-      {/* =====================================
-          FILTER AND ACTION TOOLBAR
-      ===================================== */}
+      {/* FILTER AND ACTION TOOLBAR */}
 
       <div className="toolbar faculty-toolbar">
 
         {/* DEPARTMENT */}
+
         <select
           className="faculty-filter-select"
           value={department}
@@ -788,7 +865,9 @@ function GeneratedTimetable() {
           ))}
         </select>
 
+
         {/* YEAR */}
+
         <select
           className="faculty-filter-select"
           value={year}
@@ -804,7 +883,9 @@ function GeneratedTimetable() {
           ))}
         </select>
 
+
         {/* SEMESTER */}
+
         <select
           className="faculty-filter-select"
           value={semester}
@@ -820,7 +901,9 @@ function GeneratedTimetable() {
           ))}
         </select>
 
+
         {/* EXPORT FORMAT */}
+
         <select
           className="faculty-filter-select export-format-select"
           value={exportFormat}
@@ -830,7 +913,9 @@ function GeneratedTimetable() {
           <option value="pdf">PDF</option>
         </select>
 
+
         {/* EXPORT BUTTON */}
+
         <button
           type="button"
           className="secondary-button"
@@ -840,17 +925,21 @@ function GeneratedTimetable() {
           Export
         </button>
 
+
         {/* GENERATE AGAIN */}
+
         <button
           type="button"
           className="primary-button"
           onClick={handleGenerateAgain}
-          disabled={!activeSchedule}
+          disabled={!hasSelection}
         >
           Generate Again
         </button>
 
+
         {/* CLEAR FILTERS */}
+
         <button
           type="button"
           className="faculty-clear-button"
@@ -862,16 +951,18 @@ function GeneratedTimetable() {
       </div>
 
 
-      {/* =====================================
-          RESULT MESSAGE
-      ===================================== */}
+      {/* RESULT MESSAGE */}
 
       <div className="faculty-result-info timetable-result-info">
+
         {!hasSelection ? (
+
           <span>
             Select department, year and semester to view the generated timetable.
           </span>
+
         ) : activeSchedule ? (
+
           <span>
             Timetable available for{" "}
             <strong>{department}</strong>
@@ -880,13 +971,20 @@ function GeneratedTimetable() {
             {" | "}
             <strong>{semester}</strong>
           </span>
+
         ) : (
+
           <span>
             No generated timetable is available for this selection yet.
             Add the corresponding timetable data to display it here.
           </span>
+
         )}
+
       </div>
+
+
+      {/* SUCCESS / STATUS MESSAGE */}
 
       {generationMessage && (
         <div className="timetable-success-message">
@@ -895,13 +993,12 @@ function GeneratedTimetable() {
       )}
 
 
-      {/* =====================================
-          TIMETABLE INFORMATION
-          ROOM AND CONFLICTS ON ONE LINE
-      ===================================== */}
+      {/* TIMETABLE INFORMATION */}
 
       {activeSchedule && (
+
         <>
+
           <div className="timetable-info">
 
             <div>
@@ -937,29 +1034,33 @@ function GeneratedTimetable() {
                 }
               >
                 {conflicts.length}
-                {conflicts.length > 0 ? " Found" : " - No Conflict"}
+                {conflicts.length > 0
+                  ? " Found"
+                  : " - No Conflict"}
               </strong>
             </div>
 
           </div>
 
 
-          {/* =====================================
-              CONFLICT REPORT
-          ===================================== */}
+          {/* CONFLICT REPORT */}
 
           {conflicts.length > 0 && (
+
             <div className="conflict-report">
 
               <div className="conflict-report-heading">
                 <h3>Timetable Conflict Report</h3>
+
                 <span>
                   {conflicts.length} conflict(s) detected
                 </span>
               </div>
 
               <div className="table-container">
+
                 <table>
+
                   <thead>
                     <tr>
                       <th>Conflict Type</th>
@@ -971,8 +1072,11 @@ function GeneratedTimetable() {
                   </thead>
 
                   <tbody>
+
                     {conflicts.map((conflict) => (
+
                       <tr key={conflict.key}>
+
                         <td>
                           <strong className="conflict-text">
                             {conflict.type}
@@ -983,25 +1087,124 @@ function GeneratedTimetable() {
                         <td>{conflict.time}</td>
                         <td>{conflict.resource}</td>
                         <td>{conflict.subjects}</td>
+
                       </tr>
+
                     ))}
+
                   </tbody>
+
                 </table>
+
               </div>
 
             </div>
+
           )}
 
+
           {conflicts.length === 0 && (
+
             <div className="conflict-success-message">
               No faculty or room conflicts detected in this timetable.
             </div>
+
           )}
 
 
           {/* =====================================
-              WEEKLY TIMETABLE
+              TIMETABLE APPROVAL SECTION
           ===================================== */}
+
+          <div className="timetable-approval-section">
+
+            <div className="approval-info">
+
+              <div>
+                <h3>Timetable Approval</h3>
+
+                <p>
+                  Review the generated timetable before publishing
+                  it to students and faculty.
+                </p>
+              </div>
+
+              <span
+                className={`approval-status ${approvalStatus.toLowerCase()}`}
+              >
+                {approvalStatus === "Approved"
+                  ? "Approved"
+                  : approvalStatus === "Rejected"
+                  ? "Rejected"
+                  : "Pending Approval"}
+              </span>
+
+            </div>
+
+
+            <div className="action-buttons">
+
+              {/* APPROVE BUTTON */}
+
+              <button
+                type="button"
+                className="approve-button"
+                onClick={handleApprove}
+                disabled={
+                  approvalStatus === "Approved" ||
+                  approvalStatus === "Rejected" ||
+                  conflicts.length > 0
+                }
+              >
+                {approvalStatus === "Approved"
+                  ? "Approved"
+                  : "Approve & Publish"}
+              </button>
+
+
+              {/* REJECT BUTTON */}
+
+              <button
+                type="button"
+                className="reject-button"
+                onClick={handleReject}
+                disabled={
+                  approvalStatus === "Rejected" ||
+                  approvalStatus === "Approved"
+                }
+              >
+                {approvalStatus === "Rejected"
+                  ? "Rejected"
+                  : "Reject"}
+              </button>
+
+            </div>
+
+
+            {conflicts.length > 0 && (
+              <p className="approval-warning">
+                Resolve all timetable conflicts before approving.
+              </p>
+            )}
+
+            {approvalStatus === "Approved" && (
+              <p className="approval-success">
+                This timetable has been approved. Connect the Django
+                backend to publish it to student and faculty accounts.
+              </p>
+            )}
+
+            {approvalStatus === "Rejected" && (
+              <p className="approval-warning">
+                This timetable has been rejected and is not ready for publication.
+                Generate a revised timetable for approval.
+              </p>
+            )}
+
+          </div>
+
+
+          {/* WEEKLY TIMETABLE */}
 
           <div className="generated-table-wrapper">
 
@@ -1014,24 +1217,31 @@ function GeneratedTimetable() {
                   {timeSlots.map((slot) => (
                     <th key={slot}>{slot}</th>
                   ))}
+
                 </tr>
               </thead>
 
               <tbody>
+
                 {activeSchedule.days.map((day, index) => (
+
                   <tr key={day.day}>
 
                     <td className="day-cell">
                       {day.day}
                     </td>
 
-                    {/* Before lunch */}
+                    {/* BEFORE LUNCH */}
+
                     {day.beforeLunch.map((cell, cellIndex) =>
                       renderCell(cell, cellIndex)
                     )}
 
-                    {/* Lunch column spans all six days */}
+
+                    {/* LUNCH */}
+
                     {index === 0 && (
+
                       <td
                         className="lunch-cell"
                         rowSpan={6}
@@ -1040,15 +1250,20 @@ function GeneratedTimetable() {
                         <br />
                         BREAK
                       </td>
+
                     )}
 
-                    {/* After lunch */}
+
+                    {/* AFTER LUNCH */}
+
                     {day.afterLunch.map((cell, cellIndex) =>
                       renderCell(cell, cellIndex + 10)
                     )}
 
                   </tr>
+
                 ))}
+
               </tbody>
 
             </table>
@@ -1056,9 +1271,7 @@ function GeneratedTimetable() {
           </div>
 
 
-          {/* =====================================
-              SUBJECT AND FACULTY DETAILS BUTTON
-          ===================================== */}
+          {/* SUBJECT AND FACULTY DETAILS BUTTON */}
 
           <div className="details-button-container">
 
@@ -1075,22 +1288,24 @@ function GeneratedTimetable() {
           </div>
 
 
-          {/* =====================================
-              SUBJECT AND FACULTY DETAILS TABLE
-          ===================================== */}
+          {/* SUBJECT AND FACULTY DETAILS TABLE */}
 
           {showDetails && (
+
             <div className="subject-details-section">
 
               <div className="details-heading">
+
                 <h3>Subject & Faculty Details</h3>
 
                 <p>
                   Faculty details assigned to subjects, seminars and projects.
                 </p>
+
               </div>
 
               <div className="table-container">
+
                 <table>
 
                   <thead>
@@ -1104,7 +1319,9 @@ function GeneratedTimetable() {
                   </thead>
 
                   <tbody>
+
                     {subjectDetails.map((subject) => (
+
                       <tr key={subject.code}>
 
                         <td>
@@ -1112,27 +1329,30 @@ function GeneratedTimetable() {
                         </td>
 
                         <td>{subject.name}</td>
-
                         <td>{subject.facultyId}</td>
-
                         <td>{subject.facultyName}</td>
-
                         <td>{subject.email}</td>
 
                       </tr>
+
                     ))}
+
                   </tbody>
 
                 </table>
+
               </div>
 
             </div>
+
           )}
 
         </>
+
       )}
 
     </div>
+
   );
 }
 

@@ -1164,6 +1164,120 @@ td strong {
   font-size: 11px;
 }
 
+/* TIMETABLE APPROVAL SECTION */
+.timetable-approval-section {
+  width: 100%;
+  margin: 22px 0;
+  padding: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 13px;
+  background: rgba(255, 255, 255, 0.06);
+  box-sizing: border-box;
+}
+
+.approval-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.approval-info h3 {
+  margin: 0;
+  color: white;
+  font-size: 17px;
+}
+
+.approval-info p {
+  margin: 7px 0 0;
+  color: #aebbd0;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.approval-status {
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.approval-status.pending {
+  color: #fef3c7;
+  background: rgba(245, 158, 11, 0.2);
+  border: 1px solid rgba(245, 158, 11, 0.4);
+}
+
+.approval-status.approved {
+  color: #bbf7d0;
+  background: rgba(34, 197, 94, 0.18);
+  border: 1px solid rgba(34, 197, 94, 0.4);
+}
+
+.approval-status.rejected {
+  color: #fecaca;
+  background: rgba(239, 68, 68, 0.18);
+  border: 1px solid rgba(239, 68, 68, 0.4);
+}
+
+.action-buttons {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.approve-button,
+.reject-button {
+  border: none;
+  padding: 7px 11px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.approve-button {
+  background: rgba(34, 197, 94, 0.85);
+  color: white;
+}
+
+.reject-button {
+  background: rgba(239, 68, 68, 0.85);
+  color: white;
+}
+
+.approve-button:hover:not(:disabled) {
+  background: #15803d;
+  transform: translateY(-2px);
+}
+
+.reject-button:hover:not(:disabled) {
+  background: #b91c1c;
+  transform: translateY(-2px);
+}
+
+.approve-button:disabled,
+.reject-button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.approval-warning {
+  margin: 13px 0 0;
+  color: #fca5a5;
+  font-size: 12px;
+}
+
+.approval-success {
+  margin: 13px 0 0;
+  color: #86efac;
+  font-size: 12px;
+}
+
 /* RESPONSIVE DESIGN OF GENERATED TIMETABLE */
 @media (max-width: 1000px) {
   .timetable-info {
@@ -1184,6 +1298,23 @@ td strong {
   .generated-weekly-table {
     min-width: 1050px;
   }
+
+  .timetable-approval-section {
+    padding: 15px;
+  }
+
+  .approval-info {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .action-buttons {
+    width: 100%;
+  }
+
+  .action-buttons button {
+    flex: 1;
+  }
 }
 
 @media (max-width: 420px) {
@@ -1191,6 +1322,7 @@ td strong {
     grid-template-columns: 1fr;
   }
 }
+
 
 
 /* =========================================
@@ -1263,88 +1395,53 @@ select option {
   font-size: 13px;
 }
 
-
 /* =========================================
-   LEAVE MANAGEMENT
+   RESPONSIVE SIDEBAR
 ========================================= */
-/*ACTION BUTTONS*/
-.action-buttons {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.approve-button,
-.reject-button {
-  border: none;
-  padding: 7px 11px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 11px;
-  font-weight: 600;
-}
-
-.approve-button {
-  background: rgba(34, 197, 94, 0.85);
-  color: white;
-}
-
-.reject-button {
-  background: rgba(239, 68, 68, 0.85);
-  color: white;
-}
-
-.approve-button:hover {
-  background: #16a34a;
-}
-
-.reject-button:hover {
-  background: #dc2626;
-}
-
-
-/* =========================================
-   RESPONSIVE
-========================================= */
+/* Tablet and smaller laptops */
 @media (max-width: 1000px) {
   .sidebar {
     width: 220px;
+    display: flex;
+    flex-direction: column;
   }
 
   .main-content {
     margin-left: 220px;
     width: calc(100% - 220px);
+    min-width: 0;
+    box-sizing: border-box;
   }
 }
 
-
-/*SIDEBAR RESPONSIVE*/
+/* Mobile and small screens */
 @media (max-width: 700px) {
   .sidebar {
-    display: none;
+    display: flex;
+    flex-direction: column;
+    width: 180px;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    overflow-y: auto;
   }
 
   .main-content {
-    margin-left: 0;
-    width: 100%;
-  }
-
-  .navbar {
-    padding: 0 20px;
+    margin-left: 180px;
+    width: calc(100% - 180px);
+    min-width: 0;
+    box-sizing: border-box;
+    overflow-x: hidden;
   }
 
   .page-content {
-    padding: 25px 20px;
-  }
-
-  .timetable-info {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .page-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 15px;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    padding: 20px 12px;
+    box-sizing: border-box;
+    overflow-x: hidden;
   }
 }
 
@@ -1952,7 +2049,6 @@ select option {
 }
 
 
-
 /* =========================================
    Laboratory - MULTIPLE PURPOSE DROPDOWN 
 ========================================= */
@@ -2057,4 +2153,147 @@ select option {
   .laboratory-purpose-list {
     min-width: 150px;
   }
+}
+
+
+
+
+/* TIMETABLE APPROVAL SECTION */
+
+.timetable-approval-section {
+  width: 100%;
+  margin: 22px 0;
+  padding: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 13px;
+  background: rgba(255, 255, 255, 0.06);
+  box-sizing: border-box;
+}
+
+.approval-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.approval-info h3 {
+  margin: 0;
+  color: white;
+  font-size: 17px;
+}
+
+.approval-info p {
+  margin: 7px 0 0;
+  color: #aebbd0;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.approval-status {
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.approval-status.pending {
+  color: #fef3c7;
+  background: rgba(245, 158, 11, 0.2);
+  border: 1px solid rgba(245, 158, 11, 0.4);
+}
+
+.approval-status.approved {
+  color: #bbf7d0;
+  background: rgba(34, 197, 94, 0.18);
+  border: 1px solid rgba(34, 197, 94, 0.4);
+}
+
+.approval-status.rejected {
+  color: #fecaca;
+  background: rgba(239, 68, 68, 0.18);
+  border: 1px solid rgba(239, 68, 68, 0.4);
+}
+
+.action-buttons {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.approve-button,
+.reject-button {
+  border: none;
+  padding: 7px 11px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.approve-button {
+  background: rgba(34, 197, 94, 0.85);
+  color: white;
+}
+
+.reject-button {
+  background: rgba(239, 68, 68, 0.85);
+  color: white;
+}
+
+.approve-button:hover:not(:disabled) {
+  background: #15803d;
+  transform: translateY(-2px);
+}
+
+.reject-button:hover:not(:disabled) {
+  background: #b91c1c;
+  transform: translateY(-2px);
+}
+
+.approve-button:disabled,
+.reject-button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.approval-warning {
+  margin: 13px 0 0;
+  color: #fca5a5;
+  font-size: 12px;
+}
+
+.approval-success {
+  margin: 13px 0 0;
+  color: #86efac;
+  font-size: 12px;
+}
+
+/* =========================================
+   RESPONSIVE APPROVAL SECTION
+========================================= */
+
+@media (max-width: 700px) {
+
+  .timetable-approval-section {
+    padding: 15px;
+  }
+
+  .approval-info {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .action-buttons {
+    width: 100%;
+  }
+
+  .action-buttons button {
+    flex: 1;
+  }
+
 }
