@@ -8,8 +8,8 @@ function LeaveManagement() {
       id: "T001",
       applicant: "Dr. Rajesh Kumar",
       role: "Faculty",
-      from: "2026-09-22",
-      to: "2026-09-23",
+      from: "22-09-2026",
+      to: "23-09-2026",
       reason: "Personal Work",
       status: "Pending"
     },
@@ -18,8 +18,8 @@ function LeaveManagement() {
       id: "T002",
       applicant: "Prof. Priya Sharma",
       role: "Faculty",
-      from: "2026-09-24",
-      to: "2026-09-25",
+      from: "24-09-2026",
+      to: "25-09-2026",
       reason: "Medical Appointment",
       status: "Approved"
     },
@@ -28,8 +28,8 @@ function LeaveManagement() {
       id: "T003",
       applicant: "Dr. Amit Singh",
       role: "Faculty",
-      from: "2026-09-28",
-      to: "2026-09-29",
+      from: "28-09-2026",
+      to: "29-09-2026",
       reason: "Family Function",
       status: "Pending"
     }
