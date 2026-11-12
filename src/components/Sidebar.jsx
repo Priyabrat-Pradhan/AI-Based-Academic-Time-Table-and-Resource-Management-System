@@ -2,7 +2,7 @@ function Sidebar({ activePage, setActivePage }) {
 
   const menu = [
     "Dashboard",
-    "Faculties",
+    "Faculty Members",
     "Students",
     "Departments",
     "Subjects",

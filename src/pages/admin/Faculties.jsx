@@ -213,7 +213,7 @@ function Faculties() {
 
       {/* PAGE HEADER */}
       <PageHeader
-        title="Faculties"
+        title="Faculty Members"
         description="Manage faculty information department-wise."
       />
 

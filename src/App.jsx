@@ -29,7 +29,7 @@ function App() {
       case "Dashboard":
         return <Dashboard setActivePage={setActivePage} />;
 
-      case "Faculties":
+      case "Faculty Members":
         return <Faculties />;
 
       case "Students":
