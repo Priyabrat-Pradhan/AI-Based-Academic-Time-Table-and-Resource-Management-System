@@ -1,353 +1,336 @@
+
 import { useState } from "react";
 
 function SubstituteRequests() {
+  const [selectedDepartment, setSelectedDepartment] = useState("");
 
   const [requests, setRequests] = useState([
     {
       facultyId: "FAC001",
       facultyName: "Priyabrat Pradhan",
+      department: "Computer Science and Engineering",
       date: "2026-10-06",
       subject: "Machine Learning",
       time: "10:00 AM - 11:00 AM",
       substituteId: "FAC005",
       substituteName: "Dr. Amit Singh",
       availability: null,
-      status: "Pending"
+      status: "Pending",
     },
     {
       facultyId: "FAC002",
       facultyName: "Dr. Rajesh Kumar",
+      department: "Electrical Engineering",
       date: "2026-10-07",
       subject: "Database Management",
       time: "11:00 AM - 12:00 PM",
       substituteId: "FAC006",
       substituteName: "Prof. Priya Sharma",
       availability: null,
-      status: "Pending"
+      status: "Pending",
     },
     {
       facultyId: "FAC003",
       facultyName: "Dr. Sasmita Pani",
+      department: "Computer Science and Engineering",
       date: "2026-10-08",
       subject: "Computer Networks",
       time: "09:00 AM - 10:00 AM",
       substituteId: "FAC007",
       substituteName: "Dr. Mukesh Bhatre",
       availability: null,
-      status: "Pending"
-    }
+      status: "Pending",
+    },
   ]);
 
-  /*
-    Mock availability data.
+  const departments = [
+    "Computer Science and Engineering",
+    "Mining Engineering",
+    "Electrical Engineering",
+    "Mechanical Engineering",
+    "Civil Engineering",
+  ];
 
-    Later this information will come from Django/MySQL.
-  */
+  // Mock faculty availability data
   const teacherAvailability = {
     FAC005: {
-      "2026-10-06": ["09:00 AM - 10:00 AM", "11:00 AM - 12:00 PM"]
+      "2026-10-06": [
+        "09:00 AM - 10:00 AM",
+        "10:00 AM - 11:00 AM",
+      ],
     },
 
     FAC006: {
-      "2026-10-07": ["09:00 AM - 10:00 AM"]
+      "2026-10-07": [
+        "09:00 AM - 10:00 AM",
+      ],
     },
 
     FAC007: {
-      "2026-10-08": ["09:00 AM - 10:00 AM", "02:00 PM - 03:00 PM"]
-    }
+      "2026-10-08": [
+        "09:00 AM - 10:00 AM",
+        "02:00 PM - 03:00 PM",
+      ],
+    },
   };
 
+  // Filter requests by department
+  const filteredRequests = requests.filter(
+    (request) => request.department === selectedDepartment
+  );
 
-  // Check whether substitute teacher is available
-  const checkAvailability = (index) => {
+  // Clear department filter
+  const clearFilter = () => {
+    setSelectedDepartment("");
+  };
 
-    const request = requests[index];
+  // Check substitute teacher availability
+  const checkAvailability = (requestId) => {
+    const request = requests.find(
+      (item) => item.facultyId === requestId
+    );
+
+    if (!request) return;
 
     const teacher = teacherAvailability[request.substituteId];
 
-    let isAvailable = false;
+    const isAvailable =
+      teacher &&
+      teacher[request.date] &&
+      teacher[request.date].includes(request.time);
 
-    if (teacher && teacher[request.date]) {
-
-      isAvailable =
-        teacher[request.date].includes(request.time);
-
-    }
-
-    setRequests((previousRequests) => {
-
-      const updatedRequests = [...previousRequests];
-
-      updatedRequests[index] = {
-        ...updatedRequests[index],
-        availability: isAvailable
-          ? "Available"
-          : "Not Available"
-      };
-
-      return updatedRequests;
-
-    });
+    setRequests((previousRequests) =>
+      previousRequests.map((item) =>
+        item.facultyId === requestId
+          ? {
+              ...item,
+              availability: isAvailable
+                ? "Available"
+                : "Not Available",
+            }
+          : item
+      )
+    );
   };
 
-
   // Approve request
-  const approveRequest = (index) => {
+  const approveRequest = (requestId) => {
+    const request = requests.find(
+      (item) => item.facultyId === requestId
+    );
 
-    const request = requests[index];
-
-    if (request.availability !== "Available") {
+    if (!request || request.availability !== "Available") {
       alert(
         "Please check teacher availability before approving the request."
       );
-
       return;
     }
 
-    setRequests((previousRequests) => {
-
-      const updatedRequests = [...previousRequests];
-
-      updatedRequests[index] = {
-        ...updatedRequests[index],
-        status: "Approved"
-      };
-
-      return updatedRequests;
-
-    });
+    setRequests((previousRequests) =>
+      previousRequests.map((item) =>
+        item.facultyId === requestId
+          ? { ...item, status: "Approved" }
+          : item
+      )
+    );
 
     alert("Substitute request approved successfully.");
   };
 
-
   // Reject request
-  const rejectRequest = (index) => {
-
-    setRequests((previousRequests) => {
-
-      const updatedRequests = [...previousRequests];
-
-      updatedRequests[index] = {
-        ...updatedRequests[index],
-        status: "Rejected"
-      };
-
-      return updatedRequests;
-
-    });
+  const rejectRequest = (requestId) => {
+    setRequests((previousRequests) =>
+      previousRequests.map((item) =>
+        item.facultyId === requestId
+          ? { ...item, status: "Rejected" }
+          : item
+      )
+    );
 
     alert("Substitute request rejected.");
   };
 
-
   return (
-
-    <div>
+    <div className="faculties-page">
 
       {/* PAGE HEADER */}
-
       <div className="page-header">
-
         <div>
-
           <h2>Substitute Requests</h2>
-
           <p>
             Check faculty substitute requests and manage availability.
           </p>
-
         </div>
+      </div>
+
+      {/* DEPARTMENT FILTER */}
+      <div className="toolbar faculty-toolbar">
+
+        <select
+          className="faculty-filter-select"
+          value={selectedDepartment}
+          onChange={(e) => setSelectedDepartment(e.target.value)}
+        >
+          <option value="">Select Department</option>
+
+          {departments.map((department) => (
+            <option key={department} value={department}>
+              {department}
+            </option>
+          ))}
+        </select>
+
+        <button
+          className="faculty-clear-button"
+          type="button"
+          onClick={clearFilter}
+        >
+          Clear Filter
+        </button>
 
       </div>
 
-
-      {/* REQUEST TABLE */}
-
-      <div className="table-container">
-
-        <table>
-
-          <thead>
-
-            <tr>
-
-              <th>Faculty ID</th>
-
-              <th>Faculty Name</th>
-
-              <th>Date</th>
-
-              <th>Subject</th>
-
-              <th>Time</th>
-
-              <th>Substitute Teacher</th>
-
-              <th>Availability</th>
-
-              <th>Status</th>
-
-              <th>Actions</th>
-
-            </tr>
-
-          </thead>
-
-
-          <tbody>
-
-            {requests.map((request, index) => (
-
-              <tr key={index}>
-
-                {/* FACULTY ID */}
-
-                <td>
-                  <strong>{request.facultyId}</strong>
-                </td>
-
-
-                {/* FACULTY */}
-
-                <td>
-                  {request.facultyName}
-                </td>
-
-
-                {/* DATE */}
-
-                <td>
-                  {request.date}
-                </td>
-
-
-                {/* SUBJECT */}
-
-                <td>
-                  {request.subject}
-                </td>
-
-
-                {/* TIME */}
-
-                <td>
-                  {request.time}
-                </td>
-
-
-                {/* SUBSTITUTE */}
-
-                <td>
-
-                  <strong>
-                    {request.substituteName}
-                  </strong>
-
-                  <br />
-
-                  <small>
-                    {request.substituteId}
-                  </small>
-
-                </td>
-
-
-                {/* AVAILABILITY */}
-
-                <td>
-
-                  {request.availability === null && (
-
-                    <span className="availability-pending">
-                      Not Checked
-                    </span>
-
-                  )}
-
-
-                  {request.availability === "Available" && (
-
-                    <span className="availability-available">
-                      Available
-                    </span>
-
-                  )}
-
-
-                  {request.availability === "Not Available" && (
-
-                    <span className="availability-unavailable">
-                      Not Available
-                    </span>
-
-                  )}
-
-                </td>
-
-
-                {/* STATUS */}
-
-                <td>
-
-                  <span
-                    className={
-                      request.status === "Approved"
-                        ? "badge approved"
-                        : request.status === "Rejected"
-                        ? "badge rejected"
-                        : "badge pending"
-                    }
-                  >
-                    {request.status}
-                  </span>
-
-                </td>
-
-
-                {/* ACTIONS */}
-
-                <td>
-
-                    <div className="action-buttons">
-                        <button
+      {/* TABLE - SHOW ONLY AFTER DEPARTMENT SELECTION */}
+      {selectedDepartment !== "" && (
+        <>
+          <div className="faculty-result-info">
+            Showing {filteredRequests.length} substitute request(s) in{" "}
+            {selectedDepartment}
+          </div>
+
+          <div className="table-container">
+            <table>
+
+              <thead>
+                <tr>
+                  <th>Faculty ID</th>
+                  <th>Faculty Name</th>
+                  <th>Date</th>
+                  <th>Subject</th>
+                  <th>Time</th>
+                  <th>Substitute Teacher</th>
+                  <th>Availability</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                {filteredRequests.length > 0 ? (
+                  filteredRequests.map((request) => (
+                    <tr key={request.facultyId}>
+
+                      <td>
+                        <strong>{request.facultyId}</strong>
+                      </td>
+
+                      <td>{request.facultyName}</td>
+
+                      <td>{request.date}</td>
+
+                      <td>{request.subject}</td>
+
+                      <td>{request.time}</td>
+
+                      <td>
+                        <strong>{request.substituteName}</strong>
+                        <br />
+                        <small>{request.substituteId}</small>
+                      </td>
+
+                      <td>
+                        {request.availability === null && (
+                          <span className="availability-pending">
+                            Not Checked
+                          </span>
+                        )}
+
+                        {request.availability === "Available" && (
+                          <span className="availability-available">
+                            Available
+                          </span>
+                        )}
+
+                        {request.availability === "Not Available" && (
+                          <span className="availability-unavailable">
+                            Not Available
+                          </span>
+                        )}
+                      </td>
+
+                      <td>
+                        <span
+                          className={
+                            request.status === "Approved"
+                              ? "badge success"
+                              : request.status === "Rejected"
+                              ? "badge rejected"
+                              : "badge pending"
+                          }
+                        >
+                          {request.status}
+                        </span>
+                      </td>
+
+                      <td>
+                        <div className="action-buttons">
+
+                          <button
                             className="check-button"
-                            onClick={() => checkAvailability(index)}
-                            disabled={request.status !== "Pending"}>
-                                Check Availability
-                        </button>
+                            onClick={() =>
+                              checkAvailability(request.facultyId)
+                            }
+                            disabled={request.status !== "Pending"}
+                            type="button"
+                          >
+                            Check Availability
+                          </button>
 
-                        <button
+                          <button
                             className="approve-button"
-                            onClick={() => approveRequest(index)}
-                            disabled={request.status !== "Pending" ||
-                                request.availability !== "Available"}>
-                                Approve
-                        </button>
+                            onClick={() =>
+                              approveRequest(request.facultyId)
+                            }
+                            disabled={
+                              request.status !== "Pending" ||
+                              request.availability !== "Available"
+                            }
+                            type="button"
+                          >
+                            Approve
+                          </button>
 
-                        <button
+                          <button
                             className="reject-button"
-                            onClick={() => rejectRequest(index)}
-                            disabled={request.status !== "Pending"}>
-                                Reject
-                        </button>
+                            onClick={() =>
+                              rejectRequest(request.facultyId)
+                            }
+                            disabled={request.status !== "Pending"}
+                            type="button"
+                          >
+                            Reject
+                          </button>
 
-                    </div>
+                        </div>
+                      </td>
 
-                </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="9" className="no-results">
+                      No substitute requests found for this department.
+                    </td>
+                  </tr>
+                )}
+              </tbody>
 
-              </tr>
-
-            ))}
-
-          </tbody>
-
-        </table>
-
-      </div>
+            </table>
+          </div>
+        </>
+      )}
 
     </div>
-
   );
 }
 

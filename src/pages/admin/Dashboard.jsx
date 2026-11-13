@@ -87,7 +87,7 @@ function Dashboard({ setActivePage }) {
   };
 
   return (
-    <div className="dashboard-page">
+    <div className="faculties-page">
 
       {/* WELCOME SECTION */}
       <div className="welcome dashboard-welcome">

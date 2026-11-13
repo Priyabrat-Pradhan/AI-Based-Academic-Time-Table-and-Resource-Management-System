@@ -621,10 +621,6 @@ textarea {
 /* =========================================
    DASHBOARD
 ========================================= */
-.dashboard-page {
-  width: 100%;
-}
-
 .dashboard-welcome {
   margin-bottom: 25px;
 }
@@ -1957,7 +1953,6 @@ select option {
 }
 
 @media (max-width: 1000px) {
-
   .toolbar {
     flex-wrap: wrap;
   }
@@ -2011,7 +2006,8 @@ select option {
 }
 
 
-/* CHECK AVAILABILITY - Substitute Requests */
+/********************8Substitute Requests*********************/
+/* CHECK AVAILABILITY */
 .check-button {
   border: 1px solid rgba(90, 190, 255, 0.35);
   background: rgba(40, 150, 230, 0.15);
@@ -2035,11 +2031,29 @@ select option {
   cursor: not-allowed;
 }
 
+/* Availability labels */
+.availability-pending {
+  color: #f0b94b;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.availability-available {
+  color: #42d392;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.availability-unavailable {
+  color: #ff6b6b;
+  font-size: 12px;
+  font-weight: 600;
+}
+
 
 /* =========================================
    Laboratory - MULTIPLE PURPOSE DROPDOWN 
 ========================================= */
-
 .laboratory-purpose-dropdown {
   position: relative;
   width: 100%;
@@ -2159,4 +2173,3 @@ select option {
   color: #fca5a5;
   background: rgba(239, 68, 68, 0.12);
 }
-
